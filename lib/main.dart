@@ -1,4 +1,7 @@
+import 'package:attendencetracker/utlities/routes/route_names.dart';
+import 'package:attendencetracker/utlities/routes/route.dart';
 import 'package:flutter/material.dart';
+
 
 void main() {
   runApp(const MainApp());
@@ -14,8 +17,8 @@ class MainApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Scaffold(
-      ),
+      initialRoute: RouteNames.home,
+      onGenerateRoute: Routes.generateRoute,
     );
   }
 }
