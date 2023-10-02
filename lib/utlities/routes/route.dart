@@ -1,3 +1,4 @@
+import 'package:attendencetracker/view/details_screen.dart';
 import 'package:attendencetracker/view/home_screen.dart';
 import 'package:attendencetracker/view/scanner_screen.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,9 @@ class Routes {
             builder: (BuildContext context) => HomeScreen());
       case RouteNames.scanner:
         return MaterialPageRoute(builder: (BuildContext context) => Scanner());
+      case RouteNames.details:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => DetailScreen());
       default:
         return MaterialPageRoute(builder: (_) {
           return const Scaffold(
