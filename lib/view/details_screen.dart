@@ -1,3 +1,4 @@
+import 'package:attendencetracker/utlities/utils.dart';
 import 'package:flutter/material.dart';
 
 class DetailScreen extends StatefulWidget {
@@ -10,6 +11,15 @@ class DetailScreen extends StatefulWidget {
 class _DetailScreenState extends State<DetailScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      body: Center(
+        child: InkWell(
+          onTap: () {
+            Utils.flushBarErrorMessage('No internet connection',context);
+          },
+          child: Text('Click Here'),
+        ),
+      ),
+    );
   }
 }

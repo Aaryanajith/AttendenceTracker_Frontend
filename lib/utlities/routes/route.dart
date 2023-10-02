@@ -6,7 +6,7 @@ import 'package:attendencetracker/utlities/routes/route_names.dart';
 
 class Routes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
-    final argument = settings.arguments;
+    
     switch (settings.name) {
       case RouteNames.home:
         return MaterialPageRoute(
