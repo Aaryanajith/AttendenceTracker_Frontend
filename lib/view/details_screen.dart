@@ -15,9 +15,9 @@ class _DetailScreenState extends State<DetailScreen> {
       body: Center(
         child: InkWell(
           onTap: () {
-            Utils.flushBarErrorMessage('No internet connection',context);
+            Utils.flushBarErrorMessage('No internet connection', context);
           },
-          child: Text('Click Here'),
+          child: Text('Details Screen'),
         ),
       ),
     );

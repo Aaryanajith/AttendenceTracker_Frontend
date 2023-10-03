@@ -8,6 +8,24 @@ import 'package:attendencetracker/resources/color.dart';
 import 'package:flutter/material.dart';
 
 class Utils {
+  static AppBar appBar(
+    String title, {
+    List<Widget>? actions,
+    bool automaticallyImplyLeading = true,
+  }) {
+    return AppBar(
+      title: Text(title, style: const TextStyle(color: ColorsClass.white)),
+      actions: actions,
+      automaticallyImplyLeading: automaticallyImplyLeading,
+      backgroundColor: Colors.amber,
+      centerTitle: true,
+      elevation: 20,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+    );
+  }
+
   static void flushBarErrorMessage(String message, BuildContext context) {
     showFlushbar(
         context: context,
@@ -24,8 +42,8 @@ class Utils {
             color: Colors.white,
           ),
           message: message,
-          backgroundColor: Color.fromARGB(223, 255, 0, 0),
-          messageColor: Color.fromARGB(255, 0, 0, 0),
+          backgroundColor: ColorsClass.red,
+          messageColor: ColorsClass.black,
           duration: const Duration(seconds: 3),
         )..show(context));
   }
@@ -35,14 +53,14 @@ class Utils {
     Navigator.pushNamed(context, RouteNames.scanner);
     Navigator.pushNamed(context, RouteNames.details);
   }
-
 }
 
 class BottomNavigationBarUtils extends StatefulWidget {
   final Function(int) onTabTapped;
   final int currentIndex;
 
-  const BottomNavigationBarUtils({super.key, 
+  const BottomNavigationBarUtils({
+    super.key,
     required this.onTabTapped,
     required this.currentIndex,
   });
@@ -60,21 +78,30 @@ class _BottomNavigationBarUtilsState extends State<BottomNavigationBarUtils> {
       child: DotNavigationBar(
         margin: const EdgeInsets.only(left: 10, right: 10),
         currentIndex: widget.currentIndex,
-        dotIndicatorColor: Colors.white,
-        unselectedItemColor: Colors.grey[300],
+        dotIndicatorColor: Colors.amber,
+        unselectedItemColor: const Color.fromARGB(255, 99, 87, 87),
         splashBorderRadius: 50,
+        backgroundColor: Colors.amber,
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            color: Colors.black.withOpacity(0),
+            blurRadius: 10,
+            spreadRadius: 5,
+            offset: const Offset(0, 0),
+          ),
+        ],
         onTap: (index) {
           widget.onTabTapped(index);
 
           switch (index) {
             case 0:
-              Utils.bottomBarNavigation(RouteNames.home, context); 
+              Navigator.pushNamed(context, RouteNames.home);
               break;
             case 1:
-              Utils.bottomBarNavigation(RouteNames.scanner, context); 
+              Navigator.pushNamed(context, RouteNames.scanner);
               break;
             case 2:
-              Utils.bottomBarNavigation(RouteNames.details, context); 
+              Navigator.pushNamed(context, RouteNames.details);
               break;
           }
         },
@@ -96,4 +123,3 @@ class _BottomNavigationBarUtilsState extends State<BottomNavigationBarUtils> {
     );
   }
 }
-

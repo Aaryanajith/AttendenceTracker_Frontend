@@ -19,13 +19,16 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: Utils.appBar(
+        'amFOSS Attendence Tracker',
+      ),
       extendBody: true,
       body: Container(
-        color: Colors.amber,
+        color: Colors.white,
       ),
-       bottomNavigationBar: BottomNavigationBarUtils(
+      bottomNavigationBar: BottomNavigationBarUtils(
         currentIndex: _SelectedTab.values.indexOf(_selectedTab),
         onTabTapped: _handleIndexChanged,
       ),
