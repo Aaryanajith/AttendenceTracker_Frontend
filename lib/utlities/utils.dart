@@ -1,5 +1,6 @@
 import 'package:another_flushbar/flushbar.dart';
 import 'package:another_flushbar/flushbar_route.dart';
+import 'package:attendencetracker/resources/color.dart';
 import 'package:flutter/material.dart';
 
 class Utils {
@@ -19,8 +20,8 @@ class Utils {
             color: Colors.white,
           ),
           message: message,
-          backgroundColor: Colors.red,
-          messageColor: Colors.black,
+          backgroundColor: ColorsClass.red,
+          messageColor: ColorsClass.black,
           duration: const Duration(seconds: 3),
         )..show(context));
   }
