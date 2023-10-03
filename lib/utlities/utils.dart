@@ -58,11 +58,14 @@ class Utils {
 class BottomNavigationBarUtils extends StatefulWidget {
   final Function(int) onTabTapped;
   final int currentIndex;
+  final VoidCallback onQRCodePressed;
+  
 
   const BottomNavigationBarUtils({
     super.key,
     required this.onTabTapped,
     required this.currentIndex,
+    required this.onQRCodePressed,
   });
 
   @override
@@ -92,14 +95,17 @@ class _BottomNavigationBarUtilsState extends State<BottomNavigationBarUtils> {
         ],
         onTap: (index) {
           widget.onTabTapped(index);
+          if (index == 1) {
+            widget.onQRCodePressed();
+          }
 
           switch (index) {
             case 0:
               Navigator.pushNamed(context, RouteNames.home);
               break;
-            case 1:
-              Navigator.pushNamed(context, RouteNames.scanner);
-              break;
+            // case 1:
+            //   Navigator.pushNamed(context, RouteNames.scanner);
+            //   break;
             case 2:
               Navigator.pushNamed(context, RouteNames.details);
               break;

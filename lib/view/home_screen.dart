@@ -1,3 +1,4 @@
+import 'package:attendencetracker/utlities/routes/route_names.dart';
 import 'package:attendencetracker/utlities/utils.dart';
 import 'package:flutter/material.dart';
 
@@ -17,6 +18,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     });
   }
 
+  void _onQRCodePressed() {
+    Navigator.pushNamed(context, RouteNames.scanner);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,9 +36,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       bottomNavigationBar: BottomNavigationBarUtils(
         currentIndex: _SelectedTab.values.indexOf(_selectedTab),
         onTabTapped: _handleIndexChanged,
+        onQRCodePressed: _onQRCodePressed, // Pass the callback here
       ),
     );
   }
 }
 
-enum _SelectedTab { home, favorite, search, person }
+enum _SelectedTab { home, qrCode, details }

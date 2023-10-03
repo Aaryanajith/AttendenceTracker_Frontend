@@ -17,7 +17,7 @@ class _DetailScreenState extends State<DetailScreen> {
           onTap: () {
             Utils.flushBarErrorMessage('No internet connection', context);
           },
-          child: Text('Details Screen'),
+          child: const Text('Details Screen'),
         ),
       ),
     );

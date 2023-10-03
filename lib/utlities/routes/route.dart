@@ -10,12 +10,12 @@ class Routes {
     switch (settings.name) {
       case RouteNames.home:
         return MaterialPageRoute(
-            builder: (BuildContext context) => HomeScreen());
+            builder: (BuildContext context) => const HomeScreen());
       case RouteNames.scanner:
-        return MaterialPageRoute(builder: (BuildContext context) => Scanner());
+        return MaterialPageRoute(builder: (BuildContext context) => QRScanner(onQRCodePressed: () {  },));
       case RouteNames.details:
         return MaterialPageRoute(
-            builder: (BuildContext context) => DetailScreen());
+            builder: (BuildContext context) => const DetailScreen());
       default:
         return MaterialPageRoute(builder: (_) {
           return const Scaffold(
