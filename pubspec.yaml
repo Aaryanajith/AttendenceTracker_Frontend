@@ -13,10 +13,10 @@ dependencies:
   salomon_bottom_bar: ^3.3.1
   loading_animation_widget: ^1.2.0+3
   http: ^1.1.0
-  fluttertoast: ^8.2.2
   another_flushbar: ^1.12.30
   provider: ^6.0.5
   barcode_scan2: ^4.2.4
+  dot_navigation_bar: ^1.0.2
 
 dev_dependencies:
   flutter_test:
