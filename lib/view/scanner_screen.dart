@@ -44,7 +44,7 @@ class _QRScannerState extends State<QRScanner> {
 
   @override
   Widget build(BuildContext context) {
-    final scanResult = this.scanResult;
+    final scanResult = this.scanResult; //returns the data from QR code
     return Scaffold(
       appBar: Utils.appBar(
         'QR Scanner',
@@ -68,10 +68,10 @@ class _QRScannerState extends State<QRScanner> {
                     title: const Text('Format'),
                     subtitle: Text(scanResult.format.toString()),
                   ),
-                  ListTile(
-                    title: const Text('Format note'),
-                    subtitle: Text(scanResult.formatNote),
-                  ),
+                  // ListTile(
+                  //   title: const Text('Format note'),
+                  //   subtitle: Text(scanResult.formatNote),
+                  // ),
                 ],
               ),
             ),
