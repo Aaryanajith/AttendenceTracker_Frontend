@@ -28,6 +28,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       extendBodyBehindAppBar: true,
       appBar: Utils.appBar(
         'amFOSS Attendence Tracker',
+        automaticallyImplyLeading: false,
       ),
       extendBody: true,
       body: Container(

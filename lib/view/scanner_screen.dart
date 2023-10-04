@@ -1,3 +1,4 @@
+import 'package:attendencetracker/utlities/routes/route_names.dart';
 import 'package:attendencetracker/utlities/utils.dart';
 import 'package:barcode_scan2/barcode_scan2.dart';
 import 'package:flutter/material.dart';
@@ -45,9 +46,15 @@ class _QRScannerState extends State<QRScanner> {
   @override
   Widget build(BuildContext context) {
     final scanResult = this.scanResult; //returns the data from QR code
-    return Scaffold(
+    return WillPopScope(
+      onWillPop: () async{
+        Navigator.pushNamed(context, RouteNames.home); // Navigate back to the home page
+        return true;
+      },
+      child: Scaffold(
       appBar: Utils.appBar(
         'QR Scanner',
+        automaticallyImplyLeading: true,
       ),
       body: ListView(
         shrinkWrap: true,
@@ -78,6 +85,7 @@ class _QRScannerState extends State<QRScanner> {
           // Rest of your UI elements...
         ],
       ),
+    ),
     );
   }
 
@@ -99,7 +107,7 @@ class _QRScannerState extends State<QRScanner> {
           ),
         ),
       );
-      
+
       setState(() => scanResult = result);
     } on PlatformException catch (e) {
       setState(() {
@@ -113,4 +121,3 @@ class _QRScannerState extends State<QRScanner> {
     }
   }
 }
-

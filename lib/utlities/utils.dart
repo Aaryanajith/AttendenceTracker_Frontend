@@ -11,13 +11,13 @@ class Utils {
   static AppBar appBar(
     String title, {
     List<Widget>? actions,
-    bool automaticallyImplyLeading = true,
+    bool automaticallyImplyLeading = false,
   }) {
     return AppBar(
       title: Text(title, style: const TextStyle(color: ColorsClass.white)),
       actions: actions,
-      automaticallyImplyLeading: automaticallyImplyLeading,
       backgroundColor: Colors.amber,
+      automaticallyImplyLeading: automaticallyImplyLeading,
       centerTitle: true,
       elevation: 20,
       shape: RoundedRectangleBorder(
@@ -59,7 +59,6 @@ class BottomNavigationBarUtils extends StatefulWidget {
   final Function(int) onTabTapped;
   final int currentIndex;
   final VoidCallback onQRCodePressed;
-  
 
   const BottomNavigationBarUtils({
     super.key,

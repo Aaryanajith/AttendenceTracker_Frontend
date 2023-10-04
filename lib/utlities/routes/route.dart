@@ -12,7 +12,7 @@ class Routes {
         return MaterialPageRoute(
             builder: (BuildContext context) => const HomeScreen());
       case RouteNames.scanner:
-        return MaterialPageRoute(builder: (BuildContext context) => QRScanner(onQRCodePressed: () {  },));
+        return MaterialPageRoute(builder: (BuildContext context) => QRScanner(onQRCodePressed: () {},));
       case RouteNames.details:
         return MaterialPageRoute(
             builder: (BuildContext context) => const DetailScreen());

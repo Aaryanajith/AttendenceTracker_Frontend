@@ -30,6 +30,7 @@ class _DetailScreenState extends State<DetailScreen> with TickerProviderStateMix
       extendBodyBehindAppBar: true,
       appBar: Utils.appBar(
         'Query Page',
+        automaticallyImplyLeading: false,
       ),
       extendBody: true,
       body: Container(
