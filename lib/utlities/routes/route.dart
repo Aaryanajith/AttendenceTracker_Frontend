@@ -1,3 +1,5 @@
+import 'package:attendencetracker/view/create_event.dart';
+import 'package:attendencetracker/view/delete_event.dart';
 import 'package:attendencetracker/view/details_screen.dart';
 import 'package:attendencetracker/view/home_screen.dart';
 import 'package:attendencetracker/view/scanner_screen.dart';
@@ -16,6 +18,12 @@ class Routes {
       case RouteNames.details:
         return MaterialPageRoute(
             builder: (BuildContext context) => const DetailScreen());
+      case RouteNames.addEvent:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => const CreateEvent());
+      case RouteNames.deleteEvent:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => const DeleteEvent());
       default:
         return MaterialPageRoute(builder: (_) {
           return const Scaffold(

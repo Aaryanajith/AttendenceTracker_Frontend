@@ -1,3 +1,4 @@
+import 'package:attendencetracker/resources/color.dart';
 import 'package:attendencetracker/utlities/routes/route_names.dart';
 import 'package:attendencetracker/utlities/utils.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +35,7 @@ class _DetailScreenState extends State<DetailScreen> with TickerProviderStateMix
       ),
       extendBody: true,
       body: Container(
-        color: Colors.white,
+        color: ColorsClass.white,
         child: const Stack(
           children: [],//add widgets here
         ),

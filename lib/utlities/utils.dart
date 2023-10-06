@@ -20,8 +20,11 @@ class Utils {
       automaticallyImplyLeading: automaticallyImplyLeading,
       centerTitle: true,
       elevation: 20,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(20),
+          bottomRight: Radius.circular(20),
+        ),
       ),
     );
   }
