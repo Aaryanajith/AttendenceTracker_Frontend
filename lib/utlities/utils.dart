@@ -1,5 +1,6 @@
 // ignore_for_file: library_private_types_in_public_api
 
+
 import 'package:another_flushbar/flushbar.dart';
 import 'package:attendencetracker/utlities/routes/route_names.dart';
 import 'package:dot_navigation_bar/dot_navigation_bar.dart';
@@ -28,6 +29,32 @@ class Utils {
       ),
     );
   }
+
+    static DropdownButton<String> customDropdown({
+    required List<String> items,
+    required String? selectedValue,
+    required ValueChanged<String?> onChanged,
+  }) {
+    return DropdownButton<String>(
+      value: selectedValue,
+      onChanged: onChanged,
+      items: items
+          .map(
+            (value) => DropdownMenuItem(
+              value: value,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(8, 8, 0, 8),
+                child: Text(
+                  value,
+                  style: const TextStyle(color: Colors.black),
+                ),
+              ),
+            ),
+          )
+          .toList(),
+    );
+  }
+
 
   static void flushBarErrorMessage(String message, BuildContext context) {
     showFlushbar(

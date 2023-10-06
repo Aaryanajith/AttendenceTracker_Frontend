@@ -3,6 +3,19 @@ import 'package:attendencetracker/utlities/routes/route_names.dart';
 import 'package:attendencetracker/utlities/utils.dart';
 import 'package:flutter/material.dart';
 
+class CustomListItem extends StatelessWidget {
+  final String title;
+
+  const CustomListItem({required this.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: Text(title),
+    );
+  }
+}
+
 class DetailScreen extends StatefulWidget {
   const DetailScreen({super.key});
 
@@ -10,9 +23,14 @@ class DetailScreen extends StatefulWidget {
   State<DetailScreen> createState() => _DetailScreenState();
 }
 
-class _DetailScreenState extends State<DetailScreen> with TickerProviderStateMixin {
-
+class _DetailScreenState extends State<DetailScreen>
+    with TickerProviderStateMixin {
   var _selectedTab = _SelectedTab.details;
+
+  int? _selectedDropdownIndex;
+
+  final List<String> _dropdownItems = ['Hacktoberfest', 'fossTalk', 'workshop'];
+  String? selectedType; // Variable to store the selected dropdown item
 
   void _handleIndexChanged(int i) {
     setState(() {
@@ -20,8 +38,7 @@ class _DetailScreenState extends State<DetailScreen> with TickerProviderStateMix
     });
   }
 
-
- void _onQRCodePressed() {
+  void _onQRCodePressed() {
     Navigator.pushNamed(context, RouteNames.scanner);
   }
 
@@ -36,8 +53,41 @@ class _DetailScreenState extends State<DetailScreen> with TickerProviderStateMix
       extendBody: true,
       body: Container(
         color: ColorsClass.white,
-        child: const Stack(
-          children: [],//add widgets here
+        child: Stack(
+          children: [
+            const Positioned(
+                top: 100,
+                left: 80,
+                child: Text('Select Event Name to display details')),
+            Positioned(
+              top: 175, // Adjust the position as needed
+              left: 120, // Adjust the position as needed
+              child: DropdownButton(
+                items: _dropdownItems
+                    .map((value) => DropdownMenuItem(
+                          value: value,
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(8, 8, 0, 8),
+                            child: Text(
+                              value,
+                              style: const TextStyle(
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                        ))
+                    .toList(),
+                onChanged: (selectedUserType) {
+                  setState(() {
+                    selectedType =
+                        selectedUserType.toString(); // Update the selected item
+                  });
+                  // You can add any logic here to handle the selected item
+                },
+                value: selectedType, // Initial selected item
+              ),
+            ),
+          ], //add widgets here
         ),
       ),
       bottomNavigationBar: BottomNavigationBarUtils(

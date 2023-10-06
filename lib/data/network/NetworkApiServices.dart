@@ -11,9 +11,9 @@ class NetworkApiService extends BaseApiServices {
   Future getGetApiResponse(String url) async {
     dynamic resposneJson;
     try {
-      // final response =
-      //     await get(Uri.parse(uri)).timeout(const Duration(seconds: 10));
-      // resposneJson = returnResponse(response);
+      final response =
+          await get(Uri.parse(url)).timeout(const Duration(seconds: 10));
+      resposneJson = returnResponse(response);
     } on SocketException {
       throw FetchDataException('No Internet Connection');
     }
@@ -24,8 +24,21 @@ class NetworkApiService extends BaseApiServices {
   Future getPostApiResponse(String url, dynamic data) async {
     dynamic resposneJson;
     try {
+      Response response = await post(Uri.parse(url), body: data)
+          .timeout(const Duration(seconds: 10));
+      resposneJson = returnResponse(response);
+    } on SocketException {
+      throw FetchDataException('No Internet Connection');
+    }
+    return resposneJson;
+  }
+
+  @override
+  Future getDeleteApiResponse(String url) async {
+    dynamic resposneJson;
+    try {
       Response response =
-          await post(Uri.parse(url), body: data).timeout(const Duration(seconds: 10));
+          await delete(Uri.parse(url)).timeout(const Duration(seconds: 10));
       resposneJson = returnResponse(response);
     } on SocketException {
       throw FetchDataException('No Internet Connection');

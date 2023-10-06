@@ -1,11 +1,11 @@
 import 'package:attendencetracker/data/network/BaseApiServices.dart';
 import 'package:attendencetracker/data/network/NetworkApiServices.dart';
-import 'package:/attendencetracker/resources/app_url.dart';
+import 'package:attendencetracker/resources/app_url.dart';
 
-class DataRepository {
+class EventRepository {
   final BaseApiServices _apiServices = NetworkApiService();
 
-  Future<dynamic> dataApi(dynamic data) async {
+  Future<dynamic> createEventApi(dynamic data) async {
     try {
       dynamic response =
           await _apiServices.getPostApiResponse(AppUrl.addEvent, data);
@@ -14,4 +14,18 @@ class DataRepository {
       rethrow;
     }
   }
+
+  Future<dynamic> getEventApi(dynamic data) async {
+    try {
+      dynamic response =
+          await _apiServices.getPostApiResponse(AppUrl.getEvent, data);
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+
+
+
 }
