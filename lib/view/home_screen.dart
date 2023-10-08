@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 class CustomListItem extends StatelessWidget {
   final String title;
 
-  const CustomListItem({required this.title});
+  const CustomListItem({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -102,10 +102,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 ),
               ),
             ),
-            Positioned(top: 200, left: 125, child: Text('Select Event Name')),
+            const Positioned(top: 200, left: 125, child: Text('Select Event Name')),
             Positioned(
-              top: 250, // Adjust the position as needed
-              left: 120, // Adjust the position as needed
+              top: 250, 
+              left: 120, 
               child: DropdownButton(
                 items: _dropdownItems
                     .map((value) => DropdownMenuItem(
@@ -124,21 +124,20 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 onChanged: (selectedUserType) {
                   setState(() {
                     selectedType =
-                        selectedUserType.toString(); // Update the selected item
+                        selectedUserType.toString(); 
                   });
-                  // You can add any logic here to handle the selected item
                 },
-                value: selectedType, // Initial selected item
+                value: selectedType,
               ),
             ),
-            Positioned(top: 500, left: 174, child: Text('count'))
+            const Positioned(top: 500, left: 174, child: Text('count'))
           ],
         ),
       ),
       bottomNavigationBar: BottomNavigationBarUtils(
         currentIndex: _SelectedTab.values.indexOf(_selectedTab),
         onTabTapped: _handleIndexChanged,
-        onQRCodePressed: _onQRCodePressed, // Pass the callback here
+        onQRCodePressed: _onQRCodePressed,
       ),
     );
   }

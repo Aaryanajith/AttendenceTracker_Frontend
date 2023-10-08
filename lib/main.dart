@@ -23,7 +23,7 @@ class MainApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      initialRoute: RouteNames.home,
+      initialRoute: RouteNames.login,
       onGenerateRoute: Routes.generateRoute,
     ),
     );
