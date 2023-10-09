@@ -1,6 +1,4 @@
 // ignore_for_file: library_private_types_in_public_api
-
-
 import 'package:another_flushbar/flushbar.dart';
 import 'package:attendencetracker/utlities/routes/route_names.dart';
 import 'package:dot_navigation_bar/dot_navigation_bar.dart';
@@ -9,6 +7,13 @@ import 'package:attendencetracker/resources/color.dart';
 import 'package:flutter/material.dart';
 
 class Utils {
+
+  static void fieldFocusChange(
+      BuildContext context, FocusNode currentFocus, FocusNode nextFocus) {
+    currentFocus.unfocus();
+    FocusScope.of(context).requestFocus(nextFocus);
+  }
+
   static AppBar appBar(
     String title, {
     List<Widget>? actions,

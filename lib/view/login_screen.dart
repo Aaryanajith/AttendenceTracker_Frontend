@@ -1,3 +1,5 @@
+import 'package:attendencetracker/resources/color.dart';
+import 'package:attendencetracker/resources/components/round_buttom.dart';
 import 'package:attendencetracker/utlities/utils.dart';
 import 'package:flutter/material.dart';
 
@@ -12,8 +14,21 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _obscureText = true;
 
   final TextEditingController _usernameTextController = TextEditingController();
-
   final TextEditingController _passwordTextController = TextEditingController();
+
+  FocusNode usernameFocus = FocusNode();
+  FocusNode passwordFocus = FocusNode();
+
+  @override
+  void dispose(){
+    super.dispose();
+
+    _usernameTextController.dispose();
+    _passwordTextController.dispose();
+
+    usernameFocus.dispose();
+    passwordFocus.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
       extendBody: true,
       body: GestureDetector(
-        onTap: () {},
+        onTap: () => FocusScope.of(context).unfocus(),
         child: Scaffold(
           body: SizedBox(
             width: double.maxFinite,
@@ -34,12 +49,20 @@ class _LoginScreenState extends State<LoginScreen> {
               alignment: AlignmentDirectional.center,
               children: [
                 Positioned(
+                  top: 0,
+                  child: Image.asset(
+                    'assets/amFOSS.png',
+                    height: 400,
+                    scale: 3.5,
+                  ),
+                ),
+                Positioned(
                   bottom: 0,
                   child: Column(
                     children: <Widget>[
                       SizedBox(
-                         width: MediaQuery.of(context).size.width,
-                         height: 460,
+                        width: MediaQuery.of(context).size.width,
+                        height: 460,
                         child: SingleChildScrollView(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,22 +86,32 @@ class _LoginScreenState extends State<LoginScreen> {
                                     child: Container(
                                       padding: const EdgeInsets.fromLTRB(
                                           20, 20, 20, 0),
-                                      child: TextField(
+                                      child: TextFormField(
                                           decoration: const InputDecoration(
-                                              focusedBorder: UnderlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                    color: Color.fromARGB(255, 160, 53, 60),)),
+                                              focusedBorder:
+                                                  UnderlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                color: Color.fromARGB(
+                                                    255, 160, 53, 60),
+                                              )),
                                               contentPadding: EdgeInsets.only(
                                                 left: 10.0,
                                                 right: 10.0,
                                               ),
-                                              floatingLabelStyle:
-                                              TextStyle(color: Color.fromARGB(255, 160, 53, 60)),
+                                              floatingLabelStyle: TextStyle(
+                                                  color: Color.fromARGB(
+                                                      255, 160, 53, 60)),
                                               labelText: "Username",
                                               prefixIcon: Icon(Icons.mail),
-                                              prefixIconColor: Color.fromARGB(255, 208, 8, 70),
+                                              prefixIconColor:
+                                                  ColorsClass.amber,
                                               hintStyle: TextStyle(
                                                   color: Colors.grey)),
+                                          focusNode: usernameFocus,
+                                          onFieldSubmitted: (value) {
+                                            Utils.fieldFocusChange(context,
+                                                usernameFocus, passwordFocus);
+                                          },
                                           controller: _usernameTextController),
                                     ),
                                   ),
@@ -87,22 +120,27 @@ class _LoginScreenState extends State<LoginScreen> {
                                     child: Container(
                                       padding: const EdgeInsets.fromLTRB(
                                           20, 20, 20, 0),
-                                      child: TextField(
+                                      child: TextFormField(
+                                          focusNode: passwordFocus,
                                           obscureText: _obscureText,
+                                          obscuringCharacter: '*',
                                           decoration: InputDecoration(
-                                            focusedBorder: const UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                  color: Color.fromARGB(255, 160, 53, 60),)),
+                                            focusedBorder:
+                                                const UnderlineInputBorder(
+                                                    borderSide: BorderSide(
+                                              color: Color.fromARGB(
+                                                  255, 160, 53, 60),
+                                            )),
                                             contentPadding:
                                                 const EdgeInsets.only(
                                               left: 10.0,
                                               right: 10.0,
                                             ),
-                                            floatingLabelStyle:
-                                            const TextStyle(color: Color.fromARGB(255, 160, 53, 60)),
+                                            floatingLabelStyle: const TextStyle(
+                                                color: ColorsClass.amber),
                                             labelText: "Password",
                                             prefixIcon: const Icon(Icons.lock),
-                                            prefixIconColor: const Color.fromARGB(255, 208, 8, 70),
+                                            prefixIconColor: ColorsClass.amber,
                                             // ignore: sort_child_properties_last
                                             suffixIcon: GestureDetector(
                                               onTap: () {
@@ -120,7 +158,23 @@ class _LoginScreenState extends State<LoginScreen> {
                                           controller: _passwordTextController),
                                     ),
                                   ),
-
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 20),
+                                    child: RoundButton(
+                                      buttonName: 'Login',
+                                      onPressed: () {
+                                        if (_usernameTextController
+                                            .text.isEmpty) {
+                                          Utils.flushBarErrorMessage(
+                                              'Please enter Username', context);
+                                        } else if (_passwordTextController
+                                            .text.isEmpty) {
+                                          Utils.flushBarErrorMessage(
+                                              'Please enter Password', context);
+                                            } else {}
+                                      },
+                                    ),
+                                  ),
                                 ],
                               )
                             ],
