@@ -75,10 +75,7 @@ class _QRScannerState extends State<QRScanner> {
                     title: const Text('Format'),
                     subtitle: Text(scanResult.format.toString()),
                   ),
-                  // ListTile(
-                  //   title: const Text('Format note'),
-                  //   subtitle: Text(scanResult.formatNote),
-                  // ),
+                  Positioned(child: ElevatedButton(onPressed: (){},child: Placeholder(),))
                 ],
               ),
             ),

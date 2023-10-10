@@ -5,4 +5,5 @@ class RouteNames {
   static const String details = 'details_screen';
   static const String addEvent = 'create_event';
   static const String deleteEvent = 'delete_event';
+  static const String splash = 'splash_screen';
 }

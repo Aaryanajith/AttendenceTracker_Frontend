@@ -1,7 +1,10 @@
 import 'package:attendencetracker/resources/color.dart';
 import 'package:attendencetracker/resources/components/round_buttom.dart';
+import 'package:attendencetracker/utlities/routes/route_names.dart';
 import 'package:attendencetracker/utlities/utils.dart';
+import 'package:attendencetracker/view_model/authViewModel.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -20,7 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
   FocusNode passwordFocus = FocusNode();
 
   @override
-  void dispose(){
+  void dispose() {
     super.dispose();
 
     _usernameTextController.dispose();
@@ -32,6 +35,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final authViewModel = Provider.of<AuthViewModel>(context);
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: Utils.appBar(
@@ -48,19 +53,23 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Stack(
               alignment: AlignmentDirectional.center,
               children: [
-                Positioned(
-                  top: 0,
-                  child: Image.asset(
-                    'assets/amFOSS.png',
-                    height: 400,
-                    scale: 3.5,
+                SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 400),
+                    child: Image.asset(
+                      'assets/amFOSS.png',
+                      height: 300,
+                      scale: 4,
+                    ),
                   ),
                 ),
                 Positioned(
                   bottom: 0,
                   child: Column(
                     children: <Widget>[
-                      SizedBox(
+                      Container(
+                        decoration:
+                            const BoxDecoration(color: ColorsClass.white),
                         width: MediaQuery.of(context).size.width,
                         height: 460,
                         child: SingleChildScrollView(
@@ -171,7 +180,17 @@ class _LoginScreenState extends State<LoginScreen> {
                                             .text.isEmpty) {
                                           Utils.flushBarErrorMessage(
                                               'Please enter Password', context);
-                                            } else {}
+                                        } else {
+                                          Map data = {
+                                            "username": _usernameTextController
+                                                .text
+                                                .toString(),
+                                            "password": _passwordTextController
+                                                .text
+                                                .toString()
+                                          };
+                                          authViewModel.login(data, context);
+                                        }
                                       },
                                     ),
                                   ),

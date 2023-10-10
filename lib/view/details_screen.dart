@@ -1,7 +1,9 @@
 import 'package:attendencetracker/resources/color.dart';
 import 'package:attendencetracker/utlities/routes/route_names.dart';
 import 'package:attendencetracker/utlities/utils.dart';
+import 'package:attendencetracker/view_model/tokenViewModel.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CustomListItem extends StatelessWidget {
   final String title;
@@ -44,6 +46,8 @@ class _DetailScreenState extends State<DetailScreen>
 
   @override
   Widget build(BuildContext context) {
+    final userPreference = Provider.of<TokenViewModel>(context);
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: Utils.appBar(
@@ -82,11 +86,20 @@ class _DetailScreenState extends State<DetailScreen>
                     selectedType =
                         selectedUserType.toString(); // Update the selected item
                   });
-                  // You can add any logic here to handle the selected item
                 },
                 value: selectedType, // Initial selected item
               ),
             ),
+            Positioned(
+              bottom: 100,
+              child: InkWell(
+              onTap: () {
+                userPreference.remove().then((value){
+                  Navigator.pushNamed(context, RouteNames.login);
+                });
+              },
+              child: Text('Logout'),
+            ))
           ], //add widgets here
         ),
       ),

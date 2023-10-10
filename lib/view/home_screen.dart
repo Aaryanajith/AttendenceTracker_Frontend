@@ -1,7 +1,7 @@
 import 'package:attendencetracker/resources/color.dart';
 import 'package:attendencetracker/utlities/routes/route_names.dart';
 import 'package:attendencetracker/utlities/utils.dart';
-import 'package:attendencetracker/view_model/eventViewModel.dart';
+import 'package:attendencetracker/view_model/getEventViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -29,6 +29,15 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   var _selectedTab = _SelectedTab.home;
   int? _selectedDropdownIndex;
 
+  EventViewModel eventViewModel = EventViewModel();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    eventViewModel.eventApi(context);
+    super.initState();
+  }
+
   final List<String> _dropdownItems = ['Hacktoberfest', 'fossTalk', 'workshop'];
   String? selectedType; // Variable to store the selected dropdown item
 
@@ -44,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    // final eventView = Provider.of<EventViewModel>(context);
+    final eventViewModel = Provider.of<EventViewModel>(context);
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -102,10 +111,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 ),
               ),
             ),
-            const Positioned(top: 200, left: 125, child: Text('Select Event Name')),
+            const Positioned(
+                top: 200, left: 125, child: Text('Select Event Name')),
             Positioned(
-              top: 250, 
-              left: 120, 
+              top: 250,
+              left: 120,
               child: DropdownButton(
                 items: _dropdownItems
                     .map((value) => DropdownMenuItem(
@@ -123,14 +133,19 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     .toList(),
                 onChanged: (selectedUserType) {
                   setState(() {
-                    selectedType =
-                        selectedUserType.toString(); 
+                    selectedType = selectedUserType.toString();
                   });
                 },
                 value: selectedType,
               ),
             ),
-            const Positioned(top: 500, left: 174, child: Text('count'))
+            const Positioned(top: 500, left: 174, child: Text('count')),
+            Positioned(top: 520, left: 174, child: InkWell(
+              onTap: () {
+                eventViewModel.get
+              },
+              child: Text('get api'),)
+            )
           ],
         ),
       ),

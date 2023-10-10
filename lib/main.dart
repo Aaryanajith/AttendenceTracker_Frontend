@@ -1,6 +1,8 @@
 import 'package:attendencetracker/utlities/routes/route_names.dart';
 import 'package:attendencetracker/utlities/routes/route.dart';
-import 'package:attendencetracker/view_model/eventViewModel.dart';
+import 'package:attendencetracker/view_model/authViewModel.dart';
+import 'package:attendencetracker/view_model/getEventViewModel.dart';
+import 'package:attendencetracker/view_model/tokenViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,7 +17,9 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => EventViewModel())
+        ChangeNotifierProvider(create: (_) => AuthViewModel()),
+        ChangeNotifierProvider(create: (_) => EventViewModel()),
+        ChangeNotifierProvider(create: (_) => TokenViewModel())
       ],
       child: MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -23,9 +27,10 @@ class MainApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      initialRoute: RouteNames.login,
+      initialRoute: RouteNames.splash,
       onGenerateRoute: Routes.generateRoute,
     ),
     );
   }
 }
+

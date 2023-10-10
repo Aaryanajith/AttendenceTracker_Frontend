@@ -4,6 +4,7 @@ import 'package:attendencetracker/view/details_screen.dart';
 import 'package:attendencetracker/view/home_screen.dart';
 import 'package:attendencetracker/view/login_screen.dart';
 import 'package:attendencetracker/view/scanner_screen.dart';
+import 'package:attendencetracker/view/splash%20screen.dart';
 import 'package:flutter/material.dart';
 import 'package:attendencetracker/utlities/routes/route_names.dart';
 
@@ -28,6 +29,9 @@ class Routes {
       case RouteNames.login:
         return MaterialPageRoute(
             builder: (BuildContext context) => const LoginScreen());
+      case RouteNames.splash:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => const SplashScreen());
       default:
         return MaterialPageRoute(builder: (_) {
           return const Scaffold(
