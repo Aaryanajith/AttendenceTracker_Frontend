@@ -1,22 +1,10 @@
+import 'dart:convert';
 import 'package:attendencetracker/resources/color.dart';
 import 'package:attendencetracker/utlities/routes/route_names.dart';
 import 'package:attendencetracker/utlities/utils.dart';
 import 'package:attendencetracker/view_model/getEventViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-class CustomListItem extends StatelessWidget {
-  final String title;
-
-  const CustomListItem({super.key, required this.title});
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(title),
-    );
-  }
-}
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -30,16 +18,21 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   int? _selectedDropdownIndex;
 
   EventViewModel eventViewModel = EventViewModel();
+  String? selectedType;
+  List<String>? eventNames;
 
   @override
   void initState() {
-    // TODO: implement initState
-    eventViewModel.eventApi(context);
+    eventViewModel.eventApi(context).then((names) {
+      setState(() {
+        eventNames = names;
+        if (eventNames != null && eventNames!.isNotEmpty) {
+          selectedType = eventNames![0];
+        }
+      });
+    });
     super.initState();
   }
-
-  final List<String> _dropdownItems = ['Hacktoberfest', 'fossTalk', 'workshop'];
-  String? selectedType; // Variable to store the selected dropdown item
 
   void _handleIndexChanged(int i) {
     setState(() {
@@ -53,7 +46,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final eventViewModel = Provider.of<EventViewModel>(context);
+    eventViewModel = Provider.of<EventViewModel>(context);
+    String json = jsonEncode(eventViewModel.eventsList.data);
+    debugPrint("RESPONSE ${jsonDecode(json)}");
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -67,27 +62,28 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         child: Stack(
           children: [
             Positioned(
-                top: 100,
-                left: 10,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    elevation: 10,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    backgroundColor: ColorsClass.amber,
+              top: 100,
+              left: 10,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  elevation: 10,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
                   ),
-                  onPressed: () {
-                    Navigator.pushNamed(context, RouteNames.addEvent);
-                  },
-                  child: const Text(
-                    'Create Event',
-                    style: TextStyle(
-                      fontSize: 25,
-                      color: ColorsClass.white,
-                    ),
+                  backgroundColor: ColorsClass.amber,
+                ),
+                onPressed: () {
+                  Navigator.pushNamed(context, RouteNames.addEvent);
+                },
+                child: const Text(
+                  'Create Event',
+                  style: TextStyle(
+                    fontSize: 25,
+                    color: ColorsClass.white,
                   ),
-                )),
+                ),
+              ),
+            ),
             Positioned(
               top: 100,
               right: 10,
@@ -112,40 +108,32 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               ),
             ),
             const Positioned(
-                top: 200, left: 125, child: Text('Select Event Name')),
-            Positioned(
-              top: 250,
-              left: 120,
-              child: DropdownButton(
-                items: _dropdownItems
-                    .map((value) => DropdownMenuItem(
-                          value: value,
-                          child: Padding(
-                            padding: const EdgeInsets.fromLTRB(8, 8, 0, 8),
-                            child: Text(
-                              value,
-                              style: const TextStyle(
-                                color: Colors.black,
-                              ),
-                            ),
-                          ),
-                        ))
-                    .toList(),
-                onChanged: (selectedUserType) {
-                  setState(() {
-                    selectedType = selectedUserType.toString();
-                  });
-                },
-                value: selectedType,
-              ),
+              top: 200,
+              left: 125,
+              child: Text('Select Event Name'),
             ),
-            const Positioned(top: 500, left: 174, child: Text('count')),
-            Positioned(top: 520, left: 174, child: InkWell(
-              onTap: () {
-                eventViewModel.get
-              },
-              child: Text('get api'),)
-            )
+            Positioned(
+                top: 250,
+                left: 120,
+                child: DropdownButton<String>(
+                  items: eventNames?.map((name) {
+                    return DropdownMenuItem<String>(
+                      value: name,
+                      child: Text(name),
+                    );
+                  }).toList(),
+                  value: selectedType,
+                  onChanged: (value) {
+                    setState(() {
+                      selectedType = value;
+                    });
+                  },
+                )),
+            const Positioned(
+              top: 500,
+              left: 174,
+              child: Text('count'),
+            ),
           ],
         ),
       ),

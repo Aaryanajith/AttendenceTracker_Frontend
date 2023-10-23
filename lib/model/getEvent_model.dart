@@ -5,14 +5,20 @@ class EventList {
   int? numOfDays;
   int? numOfSessions;
 
-  EventList(
-      {this.eventName, this.startingDate, this.numOfDays, this.numOfSessions});
+  EventList({
+    this.eventName,
+    this.startingDate,
+    this.numOfDays,
+    this.numOfSessions,
+  });
 
-  EventList.fromJson(Map<String, dynamic> json) {
-    eventName = json['event_name'];
-    startingDate = json['starting_date'];
-    numOfDays = json['num_of_days'];
-    numOfSessions = json['num_of_sessions'];
+  factory EventList.fromJson(Map<String, dynamic> json) {
+    return EventList(
+      eventName: json['event_name'],
+      startingDate: json['starting_date'],
+      numOfDays: json['num_of_days'],
+      numOfSessions: json['num_of_sessions'],
+    );
   }
 
   Map<String, dynamic> toJson() {
@@ -23,4 +29,6 @@ class EventList {
     data['num_of_sessions'] = numOfSessions;
     return data;
   }
+
+  map(Function(dynamic event) param0) {}
 }

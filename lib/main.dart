@@ -4,9 +4,11 @@ import 'package:attendencetracker/view_model/authViewModel.dart';
 import 'package:attendencetracker/view_model/getEventViewModel.dart';
 import 'package:attendencetracker/view_model/tokenViewModel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 
 void main() {
+  debugPaintSizeEnabled = false;
   runApp(const MainApp());
 }
 
