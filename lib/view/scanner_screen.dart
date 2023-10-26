@@ -66,16 +66,12 @@ class _QRScannerState extends State<QRScanner> {
               child: Column(
                 children: <Widget>[
                   ListTile(
-                    title: const Text('Result Type'),
-                    subtitle: Text(scanResult.type.toString()),
-                  ),
-                  ListTile(
                     title: const Text('Raw Content'),
                     subtitle: Text(scanResult.rawContent),
                   ),
                   ListTile(
                     title: const Text('Format'),
-                    subtitle: Text(scanResult.format.toString()),
+                    subtitle: Text(scanResult.runtimeType.toString()),
                   ),
                   Positioned(child: ElevatedButton(onPressed: (){},child: Placeholder(),))
                 ],
