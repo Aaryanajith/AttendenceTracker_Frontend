@@ -1,7 +1,9 @@
 import 'package:attendencetracker/resources/color.dart';
 import 'package:attendencetracker/utlities/routes/route_names.dart';
 import 'package:attendencetracker/utlities/utils.dart';
+import 'package:attendencetracker/view_model/deleteEventViewModel.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class DeleteEvent extends StatefulWidget {
   const DeleteEvent({Key? key}) : super(key: key);
@@ -15,6 +17,8 @@ class _DeleteEventState extends State<DeleteEvent> {
 
   @override
   Widget build(BuildContext context) {
+    final deleteEventModel = Provider.of<DeleteEventModel>(context);
+
     return WillPopScope(
       onWillPop: () async {
         Navigator.pushNamed(
@@ -23,7 +27,7 @@ class _DeleteEventState extends State<DeleteEvent> {
       },
       child: Scaffold(
         appBar: Utils.appBar(
-          'Create Event',
+          'Delete Event',
           automaticallyImplyLeading: true,
         ),
         body: GestureDetector(
@@ -49,7 +53,7 @@ class _DeleteEventState extends State<DeleteEvent> {
                       padding: EdgeInsets.only(top: 20),
                       child: Container(
                         padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                        child: TextField(
+                        child: TextFormField(
                           decoration: const InputDecoration(
                               labelText: 'Enter the event name'),
                           controller: _eventNameController,
@@ -59,7 +63,19 @@ class _DeleteEventState extends State<DeleteEvent> {
                     Padding(
                       padding: EdgeInsets.only(top: 20),
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          if (_eventNameController.text.isEmpty) {
+                            Utils.flushBarErrorMessage(
+                                'Enter the event name', context);
+                          } else {
+
+                            Map data = {
+                              "event_name": _eventNameController.text.toString()
+                            };
+
+                            deleteEventModel.deleteEvent(data, context);
+                          }
+                        },
                         child: const Text('Delete Event'),
                       ),
                     )

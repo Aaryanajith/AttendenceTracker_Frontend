@@ -11,7 +11,7 @@ class EventRepository {
   Future<EventList> createEventApi(dynamic data) async {
     try {
       dynamic response =
-          await _apiServices.getPostApiResponse(AppUrl.addEvent, data);
+          await _apiServices.getPostApiResponse_(AppUrl.addEvent, data);
       return response;
     } catch (e) {
       rethrow;
@@ -26,7 +26,7 @@ class EventRepository {
           jsonResponseList.map((json) => EventList.fromJson(json)).toList();
       ApiResponse<List<EventList>> apiResponse =
           ApiResponse.completed(eventList);
-      // debugPrint("response ${apiResponse.data}");
+      debugPrint("response ${apiResponse.data}");
       return apiResponse;
     } catch (e) {
       rethrow;
@@ -36,7 +36,7 @@ class EventRepository {
   Future<EventList> deleteEventApi(dynamic data) async {
     try {
       dynamic response =
-          await _apiServices.getPostApiResponse(AppUrl.deleteEvent, data);
+          await _apiServices.getPostApiResponse_(AppUrl.deleteEvent, data);
       return response;
     } catch (e) {
       rethrow;
