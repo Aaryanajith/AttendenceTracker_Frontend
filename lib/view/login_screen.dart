@@ -1,6 +1,5 @@
 import 'package:attendencetracker/resources/color.dart';
 import 'package:attendencetracker/resources/components/round_buttom.dart';
-import 'package:attendencetracker/utlities/routes/route_names.dart';
 import 'package:attendencetracker/utlities/utils.dart';
 import 'package:attendencetracker/view_model/authViewModel.dart';
 import 'package:flutter/material.dart';

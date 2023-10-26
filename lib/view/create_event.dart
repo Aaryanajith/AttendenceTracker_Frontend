@@ -145,14 +145,11 @@ class _CreateEventState extends State<CreateEvent> {
                             debugPrint(_numOfDaysController.text);
                             debugPrint(_numOfSessionController.text);
 
-                            Map<String, dynamic> data = {
-                              'event_name':
-                                  _eventNameController.text.toString(),
-                              'starting_date': DateFormat("dd/MM/yyyy")
-                                  .format(_dateTime)
-                                  .toString(),
-                              'num_of_days': _numOfDaysController.text,
-                              'num_of_sessions': _numOfSessionController.text
+                            Map data = {
+                              "event_name": _eventNameController.text.toString(),
+                              "starting_date":DateFormat("dd/MM/yyyy").format(_dateTime),
+                              "num_of_days": _numOfDaysController.text,
+                              "num_of_sessions":_numOfSessionController.text
                             };
                             getEventModel.createEvent(data, context);
                           }
