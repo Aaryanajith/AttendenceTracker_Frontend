@@ -1,3 +1,5 @@
+// ignore_for_file: unused_field
+
 import 'package:attendencetracker/resources/color.dart';
 import 'package:attendencetracker/utlities/routes/route_names.dart';
 import 'package:attendencetracker/utlities/utils.dart';

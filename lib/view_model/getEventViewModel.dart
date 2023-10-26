@@ -1,8 +1,8 @@
-// ignore: file_names
+// ignore_for_file: file_names
+
 import 'dart:convert';
 import 'package:attendencetracker/data/response/api_response.dart';
 import 'package:attendencetracker/model/getEvent_model.dart';
-// import 'package:attendencetracker/utlities/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:attendencetracker/repositories/event_repository.dart';
 

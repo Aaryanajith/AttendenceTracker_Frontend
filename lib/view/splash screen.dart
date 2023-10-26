@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:attendencetracker/view/services/splashServices.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +12,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
 
-  SplashServices _splashServices = SplashServices();
+  final SplashServices _splashServices = SplashServices();
 
   @override 
   void initState(){
@@ -21,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(
         child: CircularProgressIndicator(),
       ),

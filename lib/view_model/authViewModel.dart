@@ -1,11 +1,10 @@
-// ignore: file_names
-// ignore_for_file: use_build_context_synchronously
-
+// ignore_for_file: use_build_context_synchronously, file_names
 import 'package:attendencetracker/model/token_model.dart';
 import 'package:attendencetracker/repositories/auth_repository.dart';
 import 'package:attendencetracker/utlities/routes/route_names.dart';
 import 'package:attendencetracker/utlities/utils.dart';
 import 'package:attendencetracker/view_model/tokenViewModel.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -28,10 +27,12 @@ class AuthViewModel with ChangeNotifier {
         Utils.flushBarErrorMessage('Login failed: Access token is missing', context);
       }
 
-      print(value.toString());
+      if (kDebugMode) {
+        print(value.toString());
+      }
     } catch (error) {
       Utils.flushBarErrorMessage('Login failed: Password Wrong', context);
-      print(error.toString());
+      debugPrint(error.toString());
     }
   }
 }

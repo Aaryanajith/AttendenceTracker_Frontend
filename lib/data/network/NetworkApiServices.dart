@@ -1,10 +1,9 @@
 // ignore_for_file: file_names
-
 import 'dart:convert';
 import 'dart:io';
 import 'package:attendencetracker/data/exceptions.dart';
 import 'package:attendencetracker/data/network/BaseApiServices.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -38,7 +37,9 @@ class NetworkApiService extends BaseApiServices {
           .timeout(const Duration(seconds: 10));
       resposneJson = returnResponse(response);
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
       // throw FetchDataException('No Internet Connection');
     }
     return resposneJson;
@@ -71,31 +72,6 @@ class NetworkApiService extends BaseApiServices {
     }
     return responseJson;
   }
-
-  // @override
-  // Future getDeleteApiResponse(String url, dynamic data) async {
-  //   dynamic responseJson;
-  //   try {
-  //     // Retrieve the access token from SharedPreferences
-  //     final userPreference = await SharedPreferences.getInstance();
-  //     final String? accessToken = userPreference.getString('token');
-  //     debugPrint('delete request accessed$accessToken');
-
-  //     if (accessToken != null) {
-  //       final headers = {
-  //         "Authorization": "Bearer $accessToken",
-  //       };
-  //       final Response response = await post(Uri.parse(url), headers: headers, body: data)
-  //           .timeout(const Duration(seconds: 10));
-  //       responseJson = returnResponse(response);
-  //     } else {
-  //       throw UnauthorizedException('No Token Found');
-  //     }
-  //   } on SocketException {
-  //     throw FetchDataException('No Internet Connection');
-  //   }
-  //   return responseJson;
-  // }
 
   dynamic returnResponse(Response response) {
     switch (response.statusCode) {

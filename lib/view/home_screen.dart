@@ -15,6 +15,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   var _selectedTab = _SelectedTab.home;
+  // ignore: unused_field
   int? _selectedDropdownIndex;
 
   EventViewModel eventViewModel = EventViewModel();
