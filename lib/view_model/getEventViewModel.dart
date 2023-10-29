@@ -25,11 +25,9 @@ class EventViewModel with ChangeNotifier {
   }
 
   Future<List<String>?> eventApi(BuildContext context) async {
-  setEventList(ApiResponse.loading());
 
   try {
     final value = await _myData.getEventApi();
-    setEventList(value);
 
     String json = jsonEncode(value.data);
     List<Map<String, dynamic>> events = List<Map<String, dynamic>>.from(jsonDecode(json));

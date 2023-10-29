@@ -3,7 +3,9 @@ import 'package:attendencetracker/utlities/routes/route.dart';
 import 'package:attendencetracker/view_model/authViewModel.dart';
 import 'package:attendencetracker/view_model/createEventModel.dart';
 import 'package:attendencetracker/view_model/deleteEventViewModel.dart';
+import 'package:attendencetracker/view_model/getAttendeeViewModel.dart';
 import 'package:attendencetracker/view_model/getEventViewModel.dart';
+import 'package:attendencetracker/view_model/scanAttendeeModel.dart';
 import 'package:attendencetracker/view_model/tokenViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -23,7 +25,9 @@ class MainApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => EventViewModel()),
         ChangeNotifierProvider(create: (_) => TokenViewModel()),
         ChangeNotifierProvider(create: (_) => CreateEventModel()),
-        ChangeNotifierProvider(create: (_) => DeleteEventModel())
+        ChangeNotifierProvider(create: (_) => DeleteEventModel()),
+        ChangeNotifierProvider(create: (_) => ScanAttendeeModel()),
+        ChangeNotifierProvider(create: (_) => GetAttendeeViewModel())
       ],
       child: MaterialApp(
       debugShowCheckedModeBanner: false,

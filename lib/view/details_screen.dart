@@ -1,8 +1,10 @@
 // ignore_for_file: unused_field
 
 import 'package:attendencetracker/resources/color.dart';
+import 'package:attendencetracker/resources/components/round_buttom.dart';
 import 'package:attendencetracker/utlities/routes/route_names.dart';
 import 'package:attendencetracker/utlities/utils.dart';
+import 'package:attendencetracker/view_model/getAttendeeViewModel.dart';
 import 'package:attendencetracker/view_model/getEventViewModel.dart';
 import 'package:attendencetracker/view_model/tokenViewModel.dart';
 import 'package:flutter/material.dart';
@@ -53,6 +55,12 @@ class _DetailScreenState extends State<DetailScreen>
     final userPreference = Provider.of<TokenViewModel>(context);
     eventViewModel = Provider.of<EventViewModel>(context);
 
+    final getAttendeeViewModel = Provider.of<GetAttendeeViewModel>(context);
+    // final dynamic result =
+    //     getAttendeeViewModel.getAttendeeApi(selectedType);
+    // List<Map<String, dynamic>> attendeesData =
+    //     (result as List<Map<String, dynamic>>) ?? [];
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: Utils.appBar(
@@ -82,21 +90,53 @@ class _DetailScreenState extends State<DetailScreen>
                 onChanged: (value) {
                   setState(() {
                     selectedType = value;
+                    getAttendeeViewModel.getAttendeeApi(value, context);
                   });
                 },
               ),
             ),
+            const Positioned(
+              top: 250, // Adjust the position as needed
+              left: 16, // Adjust the position as needed
+              right: 16, // Adjust the position as needed
+              bottom: 160, // Adjust the position as needed
+              // child: attendeesData.isEmpty
+              //     ? const Center(child: Text('No attendees to display'))
+              //     : ListView.builder(
+              //         itemCount: attendeesData.length,
+              //         itemBuilder: (context, index) {
+              //           final attendee = attendeesData[index];
+              //           return Card(
+              //             margin: EdgeInsets.only(bottom: 16),
+              //             child: ListTile(
+              //               title: Text('ID: ${attendee['id']}'),
+              //               subtitle: Column(
+              //                 crossAxisAlignment: CrossAxisAlignment.start,
+              //                 children: [
+              //                   Text('Name: ${attendee['name']}'),
+              //                   Text('Email: ${attendee['email']}'),
+              //                   Text('Roll Number: ${attendee['roll_number']}'),
+              //                 ],
+              //               ),
+              //             ),
+              //           );
+              //         },
+              //       ),
+              child: Placeholder(),
+            ),
             Positioned(
-                bottom: 100,
-                child: InkWell(
-                  onTap: () {
-                    userPreference.remove().then((value) {
-                      Navigator.pushNamed(context, RouteNames.login);
-                    });
-                  },
-                  child: const Center(child: Text('Logout')),
-                ))
-          ], //add widgets here
+              bottom: 100,
+              left: 150,
+              child: RoundButton(
+                onPressed: () {
+                  userPreference.remove().then((value) {
+                    Navigator.pushNamed(context, RouteNames.login);
+                  });
+                },
+                buttonName: "Logout",
+              ),
+            )
+          ],
         ),
       ),
       bottomNavigationBar: BottomNavigationBarUtils(
