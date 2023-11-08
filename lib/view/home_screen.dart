@@ -3,8 +3,10 @@ import 'package:attendencetracker/resources/color.dart';
 import 'package:attendencetracker/utlities/routes/route_names.dart';
 import 'package:attendencetracker/utlities/utils.dart';
 import 'package:attendencetracker/view_model/getEventViewModel.dart';
+import 'package:attendencetracker/view_model/tokenViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -17,6 +19,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   var _selectedTab = _SelectedTab.home;
   // ignore: unused_field
   int? _selectedDropdownIndex;
+  Future? refreshToken;
+
+  TokenViewModel tokenViewModel = TokenViewModel();
 
   EventViewModel eventViewModel = EventViewModel();
   String? selectedType;
@@ -146,7 +151,18 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(80)),
                         backgroundColor: ColorsClass.amber),
-                    onPressed: () {},
+                    onPressed: () async {
+                      final SharedPreferences sharedPreferences =
+                          await SharedPreferences.getInstance();
+                      sharedPreferences.remove('token');
+
+                      //get the refresh token
+
+                      refreshToken = tokenViewModel.getRefresh();
+                      debugPrint(refreshToken as String?);
+                      //make a request to the refresh end point
+                      //store the token I get
+                    },
                     child: const Icon(Icons.refresh),
                   ),
                 ))
