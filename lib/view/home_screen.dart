@@ -115,7 +115,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             ),
             Positioned(
                 top: 250,
-                left: 120,
+                left: 135,
                 child: DropdownButton<String>(
                   items: eventNames?.map((name) {
                     return DropdownMenuItem<String>(
@@ -135,6 +135,21 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               left: 174,
               child: Text('count'),
             ),
+            Positioned(
+                top: 650,
+                right: 20,
+                child: SizedBox(
+                  width: 70,
+                  height: 70,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(80)),
+                        backgroundColor: ColorsClass.amber),
+                    onPressed: () {},
+                    child: const Icon(Icons.refresh),
+                  ),
+                ))
           ],
         ),
       ),

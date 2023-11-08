@@ -14,7 +14,7 @@ class ScanAttendeeModel with ChangeNotifier {
       Utils.flushBarSuccessMessage("Att3endence marked", context);
     }).onError((error, stackTrace) {
       Navigator.pushNamed(context, RouteNames.home);
-      Utils.flushBarErrorMessage("Attendence not scanned",context);
+      // Utils.flushBarErrorMessage("Attendence not scanned",context);
       debugPrint(error.toString());
     });
   }

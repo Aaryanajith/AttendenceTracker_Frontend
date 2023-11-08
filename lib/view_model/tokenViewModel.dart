@@ -9,6 +9,7 @@ class TokenViewModel with ChangeNotifier {
     final SharedPreferences sharedPreferences =
         await SharedPreferences.getInstance();
     sharedPreferences.setString('token', token.access.toString());
+    sharedPreferences.setString('refresh', token.refresh.toString());
     notifyListeners();
     return true;
   }
@@ -17,13 +18,15 @@ class TokenViewModel with ChangeNotifier {
     final SharedPreferences sharedPreferences =
         await SharedPreferences.getInstance();
     final String? token = sharedPreferences.getString('token');
-    return TokenModel(access: token.toString());
+    final String? refresh = sharedPreferences.getString('refresh');
+    return TokenModel(access: token.toString(), refresh: refresh.toString());
   }
 
   Future<bool> remove() async {
     final SharedPreferences sharedPreferences =
         await SharedPreferences.getInstance();
     sharedPreferences.remove('token');
+    sharedPreferences.remove('refresh');
     return sharedPreferences.clear();
   }
 }

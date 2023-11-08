@@ -125,8 +125,8 @@ class _DetailScreenState extends State<DetailScreen>
               child: Placeholder(),
             ),
             Positioned(
-              bottom: 100,
-              left: 150,
+              bottom: 110,
+              left: 90,
               child: RoundButton(
                 onPressed: () {
                   userPreference.remove().then((value) {

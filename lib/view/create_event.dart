@@ -1,4 +1,5 @@
 import 'package:attendencetracker/resources/color.dart';
+import 'package:attendencetracker/resources/components/round_buttom.dart';
 import 'package:attendencetracker/utlities/routes/route_names.dart';
 import 'package:attendencetracker/utlities/utils.dart';
 import 'package:attendencetracker/view_model/createEventModel.dart';
@@ -87,7 +88,8 @@ class _CreateEventState extends State<CreateEvent> {
                           child: TextField(
                             keyboardType: TextInputType.number,
                             inputFormatters: <TextInputFormatter>[
-                              FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))
+                              FilteringTextInputFormatter.allow(
+                                  RegExp(r'[0-9]'))
                             ],
                             decoration: const InputDecoration(
                                 labelText: 'Enter the no of days of event'),
@@ -113,6 +115,8 @@ class _CreateEventState extends State<CreateEvent> {
                       Padding(
                         padding: EdgeInsets.only(top: 20),
                         child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: ColorsClass.amber),
                           onPressed: () {
                             _showDatePicker();
                           },
@@ -126,7 +130,7 @@ class _CreateEventState extends State<CreateEvent> {
                                   .toString())),
                       Padding(
                         padding: EdgeInsets.only(top: 20),
-                        child: ElevatedButton(
+                        child: RoundButton(
                           onPressed: () {
                             if (_eventNameController.text.isEmpty) {
                               Utils.flushBarErrorMessage(
@@ -145,17 +149,19 @@ class _CreateEventState extends State<CreateEvent> {
                                   .toString());
                               debugPrint(_numOfDaysController.text);
                               debugPrint(_numOfSessionController.text);
-            
+
                               Map data = {
-                                "event_name": _eventNameController.text.toString(),
-                                "starting_date":DateFormat("dd/MM/yyyy").format(_dateTime),
+                                "event_name":
+                                    _eventNameController.text.toString(),
+                                "starting_date":
+                                    DateFormat("dd/MM/yyyy").format(_dateTime),
                                 "num_of_days": _numOfDaysController.text,
-                                "num_of_sessions":_numOfSessionController.text
+                                "num_of_sessions": _numOfSessionController.text
                               };
                               getEventModel.createEvent(data, context);
                             }
                           },
-                          child: const Text('Submit'),
+                          buttonName: "Submit",
                         ),
                       )
                     ],
