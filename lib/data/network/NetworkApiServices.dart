@@ -53,7 +53,7 @@ class NetworkApiService extends BaseApiServices {
       // Retrieve the access token from SharedPreferences
       final userPreference = await SharedPreferences.getInstance();
       final String? accessToken = userPreference.getString('token');
-      debugPrint('post with access token request accessed$accessToken');
+      // debugPrint('post with access token request accessed$accessToken');
 
       if (accessToken != null) {
         final headers = {

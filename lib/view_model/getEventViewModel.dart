@@ -32,7 +32,7 @@ class EventViewModel with ChangeNotifier {
     String json = jsonEncode(value.data);
     List<Map<String, dynamic>> events = List<Map<String, dynamic>>.from(jsonDecode(json));
     List<String> eventNames = events.map((event) => event['event_name'].toString()).toList();
-    debugPrint("JSON Response: $eventNames");
+    // debugPrint("JSON Response: $eventNames");
     return eventNames;
   } catch (error) {
     setEventList(ApiResponse.error(error.toString()));

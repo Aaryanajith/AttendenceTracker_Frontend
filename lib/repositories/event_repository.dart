@@ -3,7 +3,6 @@ import 'package:attendencetracker/data/network/NetworkApiServices.dart';
 import 'package:attendencetracker/data/response/api_response.dart';
 import 'package:attendencetracker/model/getEvent_model.dart';
 import 'package:attendencetracker/resources/app_url.dart';
-import 'package:flutter/material.dart';
 
 class EventRepository {
   final BaseApiServices _apiServices = NetworkApiService();
@@ -26,7 +25,7 @@ class EventRepository {
           jsonResponseList.map((json) => EventList.fromJson(json)).toList();
       ApiResponse<List<EventList>> apiResponse =
           ApiResponse.completed(eventList);
-      debugPrint("response ${apiResponse.data}");
+      // debugPrint("response ${apiResponse.data}");
       return apiResponse;
     } catch (e) {
       rethrow;

@@ -21,12 +21,6 @@ class TokenViewModel with ChangeNotifier {
     return TokenModel(access: token.toString());
   }
 
-  Future<TokenModel> getRefresh() async {
-    final SharedPreferences sharedPreferences =
-        await SharedPreferences.getInstance();
-    final String? refresh = sharedPreferences.getString('refresh');
-    return TokenModel(refresh: refresh.toString());
-  }
 
   Future<bool> remove() async {
     final SharedPreferences sharedPreferences =

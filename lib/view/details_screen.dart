@@ -1,5 +1,6 @@
 // ignore_for_file: unused_field
 
+import 'package:attendencetracker/model/getAttendees_model.dart';
 import 'package:attendencetracker/resources/color.dart';
 import 'package:attendencetracker/resources/components/round_buttom.dart';
 import 'package:attendencetracker/utlities/routes/route_names.dart';
@@ -38,7 +39,7 @@ class _DetailScreenState extends State<DetailScreen>
     super.initState();
   }
 
-  String? selectedType; // Variable to store the selected dropdown item
+  String? selectedType;
 
   void _handleIndexChanged(int i) {
     setState(() {
@@ -56,10 +57,6 @@ class _DetailScreenState extends State<DetailScreen>
     eventViewModel = Provider.of<EventViewModel>(context);
 
     final getAttendeeViewModel = Provider.of<GetAttendeeViewModel>(context);
-    // final dynamic result =
-    //     getAttendeeViewModel.getAttendeeApi(selectedType);
-    // List<Map<String, dynamic>> attendeesData =
-    //     (result as List<Map<String, dynamic>>) ?? [];
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -87,42 +84,60 @@ class _DetailScreenState extends State<DetailScreen>
                   );
                 }).toList(),
                 value: selectedType,
-                onChanged: (value) {
-                  setState(() {
-                    selectedType = value;
-                    getAttendeeViewModel.getAttendeeApi(value, context);
-                  });
+                onChanged: (String? value) {
+                  if (value != null) {
+                    setState(() {
+                      selectedType = value;
+                      Map data = {
+                        "event_name": selectedType.toString(),
+                      };
+                      getAttendeeViewModel.getAttendeeApi(data, context);
+                    });
+                  }
                 },
               ),
             ),
-            const Positioned(
-              top: 250, // Adjust the position as needed
-              left: 16, // Adjust the position as needed
-              right: 16, // Adjust the position as needed
-              bottom: 160, // Adjust the position as needed
-              // child: attendeesData.isEmpty
-              //     ? const Center(child: Text('No attendees to display'))
-              //     : ListView.builder(
-              //         itemCount: attendeesData.length,
-              //         itemBuilder: (context, index) {
-              //           final attendee = attendeesData[index];
-              //           return Card(
-              //             margin: EdgeInsets.only(bottom: 16),
-              //             child: ListTile(
-              //               title: Text('ID: ${attendee['id']}'),
-              //               subtitle: Column(
-              //                 crossAxisAlignment: CrossAxisAlignment.start,
-              //                 children: [
-              //                   Text('Name: ${attendee['name']}'),
-              //                   Text('Email: ${attendee['email']}'),
-              //                   Text('Roll Number: ${attendee['roll_number']}'),
-              //                 ],
-              //               ),
-              //             ),
-              //           );
-              //         },
-              //       ),
-              child: Placeholder(),
+            Positioned(
+              top: 250,
+              left: 16,
+              right: 16,
+              bottom: 160,
+              // child: Placeholder(),
+              child: FutureBuilder<List<GetAttendees>?>(
+                future: getAttendeeViewModel.getAttendeeApi({"event_name": selectedType.toString()}, context),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (!snapshot.hasData || snapshot.data!.isEmpty){
+                    return const Center(child: Text('No Data Found'));
+                  }else if (snapshot.hasError) {
+                    return Text('Error: ${snapshot.error}');
+                  } else {
+
+                    List<GetAttendees>? attendeesData = snapshot.data;
+
+                    return ListView.builder(
+                      itemCount: attendeesData?.length ?? 0,
+                      itemBuilder: (context, index) {
+                        return Card(
+                          child: ListTile(
+                            title: Text('Name: ${attendeesData?[index].name}'),
+                            subtitle:
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text('ID: ${attendeesData?[index].id}'),
+                                    Text('Email: ${attendeesData?[index].email}'),
+                                    Text('Roll No: ${attendeesData?[index].rollNumber}'),
+                                  ],
+                                )
+                          ),
+                        );
+                      },
+                    );
+                  }
+                },
+              ),
             ),
             Positioned(
               bottom: 110,
@@ -142,7 +157,7 @@ class _DetailScreenState extends State<DetailScreen>
       bottomNavigationBar: BottomNavigationBarUtils(
         currentIndex: _SelectedTab.values.indexOf(_selectedTab),
         onTabTapped: _handleIndexChanged,
-        onQRCodePressed: _onQRCodePressed, // Pass the callback here
+        onQRCodePressed: _onQRCodePressed,
       ),
     );
   }

@@ -1,4 +1,4 @@
-// ignore_for_file: unused_field
+// ignore_for_file: unused_field, unused_local_variable
 
 import 'package:attendencetracker/utlities/utils.dart';
 import 'package:flutter/material.dart';

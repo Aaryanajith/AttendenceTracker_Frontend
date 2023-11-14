@@ -1,12 +1,11 @@
-import 'dart:convert';
 import 'package:attendencetracker/resources/color.dart';
 import 'package:attendencetracker/utlities/routes/route_names.dart';
 import 'package:attendencetracker/utlities/utils.dart';
 import 'package:attendencetracker/view_model/getEventViewModel.dart';
-import 'package:attendencetracker/view_model/tokenViewModel.dart';
+// import 'package:attendencetracker/view_model/tokenViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -19,9 +18,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   var _selectedTab = _SelectedTab.home;
   // ignore: unused_field
   int? _selectedDropdownIndex;
-  Future? refreshToken;
-
-  TokenViewModel tokenViewModel = TokenViewModel();
 
   EventViewModel eventViewModel = EventViewModel();
   String? selectedType;
@@ -46,6 +42,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     });
   }
 
+  // Future _refreshTokenFn() async {
+  //     final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  // final String? refreshToken = sharedPreferences.getString('refresh');
+  // }
+
   void _onQRCodePressed() {
     Navigator.pushNamed(context, RouteNames.scanner);
   }
@@ -53,8 +54,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     eventViewModel = Provider.of<EventViewModel>(context);
-    String json = jsonEncode(eventViewModel.eventsList.data);
-    debugPrint("RESPONSE ${jsonDecode(json)}");
+    // String json = jsonEncode(eventViewModel.eventsList.data);
+    // debugPrint("RESPONSE ${jsonDecode(json)}");
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -140,32 +141,31 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               left: 174,
               child: Text('count'),
             ),
-            Positioned(
-                top: 650,
-                right: 20,
-                child: SizedBox(
-                  width: 70,
-                  height: 70,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(80)),
-                        backgroundColor: ColorsClass.amber),
-                    onPressed: () async {
-                      final SharedPreferences sharedPreferences =
-                          await SharedPreferences.getInstance();
-                      sharedPreferences.remove('token');
+            // Positioned(
+            //     top: 650,
+            //     right: 20,
+            //     child: SizedBox(
+            //       width: 70,
+            //       height: 70,
+            //       child: ElevatedButton(
+            //         style: ElevatedButton.styleFrom(
+            //             shape: RoundedRectangleBorder(
+            //                 borderRadius: BorderRadius.circular(80)),
+            //             backgroundColor: ColorsClass.amber),
+            //         onPressed: () async {
+            //           final SharedPreferences sharedPreferences =
+            //               await SharedPreferences.getInstance();
+            //           sharedPreferences.remove('token');
+            //           debugPrint(sharedPreferences.getString('refresh'));
 
-                      //get the refresh token
+            //           //get the refresh token
 
-                      refreshToken = tokenViewModel.getRefresh();
-                      debugPrint(refreshToken as String?);
-                      //make a request to the refresh end point
-                      //store the token I get
-                    },
-                    child: const Icon(Icons.refresh),
-                  ),
-                ))
+            //           //make a request to the refresh end point
+            //           //store the token I get
+            //         },
+            //         child: const Icon(Icons.refresh),
+            //       ),
+            //     ))
           ],
         ),
       ),

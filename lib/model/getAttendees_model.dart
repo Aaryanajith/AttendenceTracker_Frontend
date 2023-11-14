@@ -47,8 +47,6 @@ class GetAttendees {
     data['event_name'] = eventName;
     return data;
   }
-
-  map(Map<String, dynamic> Function(dynamic attendee) param0) {}
 }
 
 class AttendenceLog {
@@ -97,24 +95,17 @@ class Log {
 }
 
 class MiscLog {
-  List<Log>? log;
+  List<String>? log;
 
   MiscLog({this.log});
 
   MiscLog.fromJson(Map<String, dynamic> json) {
-    if (json['log'] != null) {
-      log = <Log>[];
-      json['log'].forEach((v) {
-        log!.add(Log.fromJson(v));
-      });
-    }
+    log = json['log'].cast<String>();
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    if (log != null) {
-      data['log'] = log!.map((v) => v.toJson()).toList();
-    }
+    data['log'] = log;
     return data;
   }
 }
