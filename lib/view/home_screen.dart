@@ -1,6 +1,8 @@
+import 'package:attendencetracker/model/getAttendees_model.dart';
 import 'package:attendencetracker/resources/color.dart';
 import 'package:attendencetracker/utlities/routes/route_names.dart';
 import 'package:attendencetracker/utlities/utils.dart';
+import 'package:attendencetracker/view_model/getAttendeeViewModel.dart';
 import 'package:attendencetracker/view_model/getEventViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -48,6 +50,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    final getAttendeeViewModel = Provider.of<GetAttendeeViewModel>(context);
+
     eventViewModel = Provider.of<EventViewModel>(context);
     // String json = jsonEncode(eventViewModel.eventsList.data);
     // debugPrint("RESPONSE ${jsonDecode(json)}");
@@ -124,39 +128,40 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       });
                     },
                   ),
-                )
+                ),
+                const SizedBox(
+                  width: double.infinity,
+                  height: 150,
+                ),
+                FutureBuilder<List<GetAttendees>?>(
+                  future: getAttendeeViewModel.getAttendeeApi(
+                      {"event_name": selectedType.toString()}, context),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                      return const Center(
+                          child: Text('No Data Found',
+                              style: TextStyle(
+                                  color: ColorsClass.white, fontSize: 20)));
+                    } else if (snapshot.hasError) {
+                      return Text('Error: ${snapshot.error}');
+                    } else {
+                      List<GetAttendees>? attendeesData = snapshot.data;
+
+                      return Text(
+                        '${attendeesData?.length}',
+                        style: GoogleFonts.oxygen(
+                            fontSize: 100,
+                            fontWeight: FontWeight.bold,
+                            color: ColorsClass.white),
+                      );
+                    }
+                  },
+                ),
+                
               ],
             ),
-            const Positioned(
-              top: 500,
-              left: 174,
-              child: Text('count'),
-            ),
-            // Positioned(
-            //     top: 650,
-            //     right: 20,
-            //     child: SizedBox(
-            //       width: 70,
-            //       height: 70,
-            //       child: ElevatedButton(
-            //         style: ElevatedButton.styleFrom(
-            //             shape: RoundedRectangleBorder(
-            //                 borderRadius: BorderRadius.circular(80)),
-            //             backgroundColor: ColorsClass.amber),
-            //         onPressed: () async {
-            //           final SharedPreferences sharedPreferences =
-            //               await SharedPreferences.getInstance();
-            //           sharedPreferences.remove('token');
-            //           debugPrint(sharedPreferences.getString('refresh'));
-
-            //           //get the refresh token
-
-            //           //make a request to the refresh end point
-            //           //store the token I get
-            //         },
-            //         child: const Icon(Icons.refresh),
-            //       ),
-            //     ))
           ],
         ),
       ),

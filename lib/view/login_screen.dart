@@ -3,6 +3,7 @@ import 'package:attendencetracker/resources/components/round_buttom.dart';
 import 'package:attendencetracker/utlities/utils.dart';
 import 'package:attendencetracker/view_model/authViewModel.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -45,162 +46,136 @@ class _LoginScreenState extends State<LoginScreen> {
       extendBody: true,
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
-        child: Scaffold(
-          body: SizedBox(
-            width: double.maxFinite,
-            height: double.maxFinite,
+        child: Container(
+          color: ColorsClass.lightBlack,
+          child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
             child: Stack(
-              alignment: AlignmentDirectional.center,
               children: [
-                SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 400),
-                    child: Image.asset(
-                      'assets/amFOSS.png',
-                      height: 300,
-                      scale: 4,
+                Column(
+                  children: [
+                    const SizedBox(
+                      width: double.infinity,
+                      height: 170,
                     ),
-                  ),
-                ),
-                Positioned(
-                  bottom: 0,
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        decoration:
-                            const BoxDecoration(color: ColorsClass.white),
-                        width: MediaQuery.of(context).size.width,
-                        height: 460,
-                        child: SingleChildScrollView(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Column(
-                                children: [
-                                  const Padding(
-                                    padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                                    child: Text(
-                                      'LOGIN',
-                                      style: TextStyle(
-                                        fontFamily: 'Roboto Condensed',
-                                        fontSize: 40,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 10),
-                                    child: Container(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          20, 20, 20, 0),
-                                      child: TextFormField(
-                                          decoration: const InputDecoration(
-                                              focusedBorder:
-                                                  UnderlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                color: Color.fromARGB(
-                                                    255, 160, 53, 60),
-                                              )),
-                                              contentPadding: EdgeInsets.only(
-                                                left: 10.0,
-                                                right: 10.0,
-                                              ),
-                                              floatingLabelStyle: TextStyle(
-                                                  color: Color.fromARGB(
-                                                      255, 160, 53, 60)),
-                                              labelText: "Username",
-                                              prefixIcon: Icon(Icons.mail),
-                                              prefixIconColor:
-                                                  ColorsClass.amber,
-                                              hintStyle: TextStyle(
-                                                  color: Colors.grey)),
-                                          focusNode: usernameFocus,
-                                          onFieldSubmitted: (value) {
-                                            Utils.fieldFocusChange(context,
-                                                usernameFocus, passwordFocus);
-                                          },
-                                          controller: _usernameTextController),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(),
-                                    child: Container(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          20, 20, 20, 0),
-                                      child: TextFormField(
-                                          focusNode: passwordFocus,
-                                          obscureText: _obscureText,
-                                          obscuringCharacter: '*',
-                                          decoration: InputDecoration(
-                                            focusedBorder:
-                                                const UnderlineInputBorder(
-                                                    borderSide: BorderSide(
-                                              color: Color.fromARGB(
-                                                  255, 160, 53, 60),
-                                            )),
-                                            contentPadding:
-                                                const EdgeInsets.only(
-                                              left: 10.0,
-                                              right: 10.0,
-                                            ),
-                                            floatingLabelStyle: const TextStyle(
-                                                color: ColorsClass.amber),
-                                            labelText: "Password",
-                                            prefixIcon: const Icon(Icons.lock),
-                                            prefixIconColor: ColorsClass.amber,
-                                            // ignore: sort_child_properties_last
-                                            suffixIcon: GestureDetector(
-                                              onTap: () {
-                                                setState(() {
-                                                  _obscureText = !_obscureText;
-                                                });
-                                              },
-                                              child: Icon(_obscureText
-                                                  ? Icons.visibility_off
-                                                  : Icons.visibility),
-                                            ),
-                                            hintStyle: const TextStyle(
-                                                color: Colors.grey),
-                                          ),
-                                          controller: _passwordTextController),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 20),
-                                    child: RoundButton(
-                                      buttonName: 'Login',
-                                      onPressed: () {
-                                        if (_usernameTextController
-                                            .text.isEmpty) {
-                                          Utils.flushBarErrorMessage(
-                                              'Please enter Username', context);
-                                        } else if (_passwordTextController
-                                            .text.isEmpty) {
-                                          Utils.flushBarErrorMessage(
-                                              'Please enter Password', context);
-                                        } else {
-                                          Map data = {
-                                            "username": _usernameTextController
-                                                .text
-                                                .toString(),
-                                            "password": _passwordTextController
-                                                .text
-                                                .toString()
-                                          };
-                                          authViewModel.login(data, context);
-                                        }
-                                      },
-                                    ),
-                                  ),
-                                ],
-                              )
-                            ],
+                    Image.asset(
+                      'assets/amFOSS.png',
+                      scale: 3,
+                    ),
+                    const SizedBox(
+                      width: double.infinity,
+                      height: 80,
+                    ),
+                    Text(
+                      'LOGIN',
+                      style: GoogleFonts.oxygen(
+                          fontSize: 35,
+                          fontWeight: FontWeight.bold,
+                          color: ColorsClass.white),
+                    ),
+                    const SizedBox(
+                      width: double.infinity,
+                      height: 20,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+                      child: TextFormField(
+                        decoration: const InputDecoration(
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: ColorsClass.amber,
+                              ),
+                            ),
+                            contentPadding:
+                                EdgeInsets.only(left: 10, right: 10),
+                            floatingLabelStyle:
+                                TextStyle(color: ColorsClass.amber),
+                            labelText: 'Username',
+                            labelStyle: TextStyle(color: ColorsClass.white),
+                            prefixIcon: Icon(Icons.mail),
+                            prefixIconColor: ColorsClass.amber,
+                            hintStyle: TextStyle(color: ColorsClass.white)),
+                        style: const TextStyle(color: ColorsClass.white),
+                        focusNode: usernameFocus,
+                        onFieldSubmitted: (value) {
+                          Utils.fieldFocusChange(
+                              context, usernameFocus, passwordFocus);
+                        },
+                        controller: _usernameTextController,
+                      ),
+                    ),
+                    const SizedBox(
+                      width: double.infinity,
+                      height: 20,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                      child: TextFormField(
+                        focusNode: passwordFocus,
+                        obscureText: _obscureText,
+                        obscuringCharacter: '*',
+                        decoration: InputDecoration(
+                          focusedBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: ColorsClass.amber,
+                            ),
                           ),
+                          contentPadding: const EdgeInsets.only(
+                            left: 10.0,
+                            right: 10.0,
+                          ),
+                          floatingLabelStyle:
+                              const TextStyle(color: ColorsClass.amber),
+                          labelText: 'Password',
+                          labelStyle: const TextStyle(color: ColorsClass.white),
+                          prefixIcon: const Icon(Icons.lock),
+                          prefixIconColor: ColorsClass.amber,
+                          suffixIcon: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                _obscureText = !_obscureText;
+                              });
+                            },
+                            child: Icon(
+                              _obscureText
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
+                              color: ColorsClass.amber,
+                            ),
+                          ),
+                          hintStyle: const TextStyle(color: ColorsClass.white),
                         ),
-                      )
-                    ],
-                  ),
+                        style: const TextStyle(color: ColorsClass.white),
+                        controller: _passwordTextController,
+                      ),
+                    ),
+                    const SizedBox(
+                      width: double.infinity,
+                      height: 20,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 40, 0, 140),
+                      child: RoundButton(
+                          buttonName: 'Login',
+                          onPressed: () {
+                            if (_usernameTextController.text.isEmpty) {
+                              Utils.flushBarErrorMessage(
+                                  'Please enter Username', context);
+                            } else if (_passwordTextController.text.isEmpty) {
+                              Utils.flushBarErrorMessage(
+                                  'Please enter Password', context);
+                            } else {
+                              Map data = {
+                                "username":
+                                    _usernameTextController.text.toString(),
+                                "password":
+                                    _passwordTextController.text.toString()
+                              };
+                              authViewModel.login(data, context);
+                            }
+                          }),
+                    )
+                  ],
                 )
               ],
             ),

@@ -10,8 +10,7 @@ class GetAttendeeViewModel with ChangeNotifier {
 
   Future<List<GetAttendees>?> getAttendeeApi(
       dynamic data, BuildContext context) async {
-    try {
-      final value = await _attendeeData.getAttendee(data);
+        final value = await _attendeeData.getAttendee(data);
 
       if (value is List) {
         List<GetAttendees> attendeeList = value
@@ -23,9 +22,6 @@ class GetAttendeeViewModel with ChangeNotifier {
         return attendeeList;
       } else {
         return null;
-      }
-    } catch (e) {
-      rethrow;
     }
   }
 }
