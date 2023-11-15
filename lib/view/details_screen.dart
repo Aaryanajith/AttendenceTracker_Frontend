@@ -88,10 +88,6 @@ class _DetailScreenState extends State<DetailScreen>
                   if (value != null) {
                     setState(() {
                       selectedType = value;
-                      Map data = {
-                        "event_name": selectedType.toString(),
-                      };
-                      getAttendeeViewModel.getAttendeeApi(data, context);
                     });
                   }
                 },
@@ -102,7 +98,6 @@ class _DetailScreenState extends State<DetailScreen>
               left: 16,
               right: 16,
               bottom: 160,
-              // child: Placeholder(),
               child: FutureBuilder<List<GetAttendees>?>(
                 future: getAttendeeViewModel.getAttendeeApi({"event_name": selectedType.toString()}, context),
                 builder: (context, snapshot) {

@@ -18,6 +18,8 @@ dependencies:
   dot_navigation_bar: ^1.0.2
   intl: ^0.18.1
   shared_preferences: ^2.2.1
+  google_fonts: ^6.1.0
+  dropdown_button2: ^2.3.9
 
 dev_dependencies:
   flutter_test:

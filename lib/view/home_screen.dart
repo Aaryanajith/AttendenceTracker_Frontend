@@ -2,10 +2,10 @@ import 'package:attendencetracker/resources/color.dart';
 import 'package:attendencetracker/utlities/routes/route_names.dart';
 import 'package:attendencetracker/utlities/utils.dart';
 import 'package:attendencetracker/view_model/getEventViewModel.dart';
-// import 'package:attendencetracker/view_model/tokenViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 // import 'package:shared_preferences/shared_preferences.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -42,11 +42,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     });
   }
 
-  // Future _refreshTokenFn() async {
-  //     final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-  // final String? refreshToken = sharedPreferences.getString('refresh');
-  // }
-
   void _onQRCodePressed() {
     Navigator.pushNamed(context, RouteNames.scanner);
   }
@@ -65,77 +60,73 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       ),
       extendBody: true,
       body: Container(
-        color: ColorsClass.white,
+        color: ColorsClass.lightBlack,
         child: Stack(
           children: [
-            Positioned(
-              top: 100,
-              left: 10,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  elevation: 10,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  backgroundColor: ColorsClass.amber,
+            Column(
+              children: [
+                const SizedBox(
+                  width: double.infinity,
+                  height: 120,
                 ),
-                onPressed: () {
-                  Navigator.pushNamed(context, RouteNames.addEvent);
-                },
-                child: const Text(
-                  'Create Event',
-                  style: TextStyle(
-                    fontSize: 25,
-                    color: ColorsClass.white,
-                  ),
+                Text("Events",
+                    style: GoogleFonts.oxygen(
+                        fontSize: 35,
+                        fontWeight: FontWeight.bold,
+                        color: ColorsClass.white)),
+                const SizedBox(
+                  width: double.infinity,
+                  height: 50,
                 ),
-              ),
+                SizedBox(
+                  width: 200,
+                  child: DropdownButtonFormField<String>(
+                    isExpanded: false,
+                    hint: Text('Select Event',
+                        style: GoogleFonts.oxygen(
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                            color: ColorsClass.white)),
+                    decoration: InputDecoration(
+                        fillColor: ColorsClass.amber,
+                        filled: true,
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(40),
+                            borderSide: const BorderSide(
+                                color: ColorsClass.amber, width: 2)),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(40))),
+                    disabledHint: Text('Select Event',
+                        style: GoogleFonts.oxygen(
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                            color: ColorsClass.white)),
+                    dropdownColor: ColorsClass.amber,
+                    icon: const Icon(Icons.keyboard_arrow_down_rounded),
+                    iconDisabledColor: Colors.blue,
+                    iconEnabledColor: ColorsClass.white,
+                    value: selectedType,
+                    items: eventNames?.map((name) {
+                      return DropdownMenuItem<String>(
+                        value: name,
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(40, 0, 0, 0),
+                          child: Text(name,
+                              style: GoogleFonts.oxygen(
+                                  fontWeight: FontWeight.bold,
+                                  color: ColorsClass.white)),
+                        ),
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        selectedType = value;
+                      });
+                    },
+                  ),
+                )
+              ],
             ),
-            Positioned(
-              top: 100,
-              right: 10,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  elevation: 10,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  backgroundColor: ColorsClass.amber,
-                ),
-                onPressed: () {
-                  Navigator.pushNamed(context, RouteNames.deleteEvent);
-                },
-                child: const Text(
-                  'Delete Event',
-                  style: TextStyle(
-                    fontSize: 25,
-                    color: ColorsClass.white,
-                  ),
-                ),
-              ),
-            ),
-            const Positioned(
-              top: 200,
-              left: 125,
-              child: Text('Select Event Name'),
-            ),
-            Positioned(
-                top: 250,
-                left: 135,
-                child: DropdownButton<String>(
-                  items: eventNames?.map((name) {
-                    return DropdownMenuItem<String>(
-                      value: name,
-                      child: Text(name),
-                    );
-                  }).toList(),
-                  value: selectedType,
-                  onChanged: (value) {
-                    setState(() {
-                      selectedType = value;
-                    });
-                  },
-                )),
             const Positioned(
               top: 500,
               left: 174,

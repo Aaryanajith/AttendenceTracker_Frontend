@@ -30,15 +30,14 @@ class MainApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => GetAttendeeViewModel())
       ],
       child: MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: Colors.amber,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        initialRoute: RouteNames.splash,
+        onGenerateRoute: Routes.generateRoute,
       ),
-      initialRoute: RouteNames.splash,
-      onGenerateRoute: Routes.generateRoute,
-    ),
     );
   }
 }
-
