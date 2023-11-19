@@ -1,5 +1,7 @@
 // ignore_for_file: unused_field, unused_local_variable
 
+import 'dart:developer';
+
 import 'package:attendencetracker/resources/color.dart';
 import 'package:attendencetracker/resources/components/round_buttom.dart';
 import 'package:attendencetracker/utlities/utils.dart';
@@ -24,6 +26,7 @@ class QRScanner extends StatefulWidget {
 
 class _QRScannerState extends State<QRScanner> {
   ScanResult? scanResult;
+  String? selectedValue;
 
   final _flashOnController = TextEditingController(text: 'Flash on');
   final _flashOffController = TextEditingController(text: 'Flash off');
@@ -53,8 +56,7 @@ class _QRScannerState extends State<QRScanner> {
 
   @override
   Widget build(BuildContext context) {
-    final List<String> items = ['1', '2'];
-    String? selectedValue;
+    final List<String> items = ["1", "2"];
 
     final scanAttendeeModel = Provider.of<ScanAttendeeModel>(context);
 
@@ -226,7 +228,7 @@ class _QRScannerState extends State<QRScanner> {
                             "id": scanResult?.rawContent,
                             "date": "10/12/2023",
                             "session": selectedValue.toString(),
-                            "time": formatedTime
+                            "time": formatedTime.toString()
                           };
                           scanAttendeeModel.scanAttendee(data, context);
                         }),
