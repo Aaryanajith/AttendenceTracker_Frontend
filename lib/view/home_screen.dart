@@ -58,6 +58,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
     return Scaffold(
       extendBodyBehindAppBar: true,
+      // floatingActionButton: SpeedDial(),
       appBar: Utils.appBar(
         'amFOSS Attendence Tracker',
         automaticallyImplyLeading: false,
@@ -159,7 +160,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     }
                   },
                 ),
-                
               ],
             ),
           ],

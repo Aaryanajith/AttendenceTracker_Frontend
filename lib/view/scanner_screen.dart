@@ -1,6 +1,7 @@
 // ignore_for_file: unused_field, unused_local_variable
 
 import 'package:attendencetracker/resources/color.dart';
+import 'package:attendencetracker/resources/components/round_buttom.dart';
 import 'package:attendencetracker/utlities/utils.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
@@ -56,8 +57,6 @@ class _QRScannerState extends State<QRScanner> {
     String? selectedValue;
 
     final scanAttendeeModel = Provider.of<ScanAttendeeModel>(context);
-
-    final TextEditingController sessionController = TextEditingController();
 
     DateTime dateTime = DateTime.now();
 
@@ -212,6 +211,25 @@ class _QRScannerState extends State<QRScanner> {
                         ),
                       ),
                     ),
+                  ),
+                  const SizedBox(
+                    width: double.infinity,
+                    height: 70,
+                  ),
+                  SizedBox(
+                    width: 180,
+                    height: 45,
+                    child: RoundButton(
+                        buttonName: 'Submit',
+                        onPressed: () {
+                          Map data = {
+                            "id": scanResult?.rawContent,
+                            "date": "10/12/2023",
+                            "session": selectedValue.toString(),
+                            "time": formatedTime
+                          };
+                          scanAttendeeModel.scanAttendee(data, context);
+                        }),
                   )
                 ],
               )
