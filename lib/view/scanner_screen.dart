@@ -1,9 +1,12 @@
 // ignore_for_file: unused_field, unused_local_variable
 
+import 'package:attendencetracker/resources/color.dart';
 import 'package:attendencetracker/utlities/utils.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:barcode_scan2/barcode_scan2.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../utlities/routes/route_names.dart';
@@ -49,6 +52,9 @@ class _QRScannerState extends State<QRScanner> {
 
   @override
   Widget build(BuildContext context) {
+    final List<String> items = ['1', '2'];
+    String? selectedValue;
+
     final scanAttendeeModel = Provider.of<ScanAttendeeModel>(context);
 
     final TextEditingController sessionController = TextEditingController();
@@ -67,57 +73,150 @@ class _QRScannerState extends State<QRScanner> {
       },
       child: Scaffold(
         appBar: Utils.appBar('QR Scanner', automaticallyImplyLeading: true),
-        body: Stack(
-          children: <Widget>[
-            if (scanResult != null)
-              Card(
-                child: Column(
-                  children: <Widget>[
-                    ListTile(
-                      title: const Text('Raw Content'),
-                      subtitle: Text(scanResult.rawContent),
-                    ),
-                    ListTile(
-                      title: const Text('Format'),
-                      subtitle: Text(scanResult.runtimeType.toString()),
-                    ),
-                  ],
-                ),
-              ),
-            Positioned(
-              top: 150, // Adjust the top position for the TextField
-              left: 20,
-              child: SizedBox(
-                width: 350,
-                child: TextField(
-                  keyboardType: TextInputType.number,
-                  inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly,
-                  ],
-                  decoration: const InputDecoration(
-                    labelText: 'Enter the session number',
+        extendBody: true,
+        extendBodyBehindAppBar: true,
+        body: Container(
+          color: ColorsClass.lightBlack,
+          child: Stack(
+            children: [
+              Column(
+                children: [
+                  const SizedBox(
+                    width: double.infinity,
+                    height: 120,
                   ),
-                  controller: sessionController,
-                ),
-              ),
-            ),
-            Positioned(
-              top: 250, // Adjust the top position for the ElevatedButton
-              left: 115,
-              child: ElevatedButton(
-                onPressed: () {
-                  Map data = {
-                    "id": scanResult?.rawContent,
-                    "date": "10/12/2023",
-                    "session": sessionController.text,
-                    "time": formatedTime
-                  };
-                  scanAttendeeModel.scanAttendee(data, context);
-                },
-                child: const Text('Mark Attendance'),
-              ),
-            ),
-          ],
+                  SizedBox(
+                    width: 170,
+                    height: 50,
+                    child: ListTile(
+                      title: Text('Scanned ID',
+                          style: GoogleFonts.oxygen(
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold,
+                              color: ColorsClass.white)),
+                      subtitle: Center(
+                        child: Text(
+                          '${scanResult?.rawContent}',
+                          style: GoogleFonts.oxygen(
+                              fontSize: 40,
+                              fontWeight: FontWeight.bold,
+                              color: ColorsClass.white),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: double.infinity,
+                    height: 90,
+                  ),
+                  Center(
+                    child: SizedBox(
+                      width: 170,
+                      child: Text(
+                        'Select Session',
+                        style: GoogleFonts.oxygen(
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                            color: ColorsClass.white),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: double.infinity,
+                    height: 20,
+                  ),
+                  SizedBox(
+                    width: 200,
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButtonFormField2<String>(
+                        isExpanded: true,
+                        decoration:
+                            const InputDecoration.collapsed(hintText: ''),
+                        hint: Row(
+                          children: [
+                            const Icon(
+                              Icons.arrow_downward_sharp,
+                              size: 16,
+                              color: ColorsClass.amber,
+                            ),
+                            const SizedBox(
+                              width: 4,
+                            ),
+                            Expanded(
+                                child: Text(
+                              'Select Session',
+                              style: GoogleFonts.oxygen(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                  color: ColorsClass.white),
+                              overflow: TextOverflow.ellipsis,
+                            )),
+                          ],
+                        ),
+                        items: items
+                            .map((String item) => DropdownMenuItem<String>(
+                                value: item,
+                                child: Text(
+                                  item,
+                                  style: GoogleFonts.oxygen(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                      color: ColorsClass.white),
+                                  overflow: TextOverflow.ellipsis,
+                                )))
+                            .toList(),
+                        value: selectedValue,
+                        onChanged: (value) {
+                          setState(() {
+                            selectedValue = value;
+                          });
+                        },
+                        buttonStyleData: ButtonStyleData(
+                          height: 50,
+                          width: 160,
+                          padding: const EdgeInsets.only(left: 14, right: 14),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(40),
+                            border: Border.all(
+                              color: ColorsClass.transparent,
+                            ),
+                            color: ColorsClass.amber,
+                          ),
+                          elevation: 2,
+                        ),
+                        iconStyleData: const IconStyleData(
+                          icon: Icon(
+                            Icons.arrow_forward_ios_outlined,
+                          ),
+                          iconSize: 14,
+                          iconEnabledColor: Colors.yellow,
+                          iconDisabledColor: Colors.grey,
+                        ),
+                        dropdownStyleData: DropdownStyleData(
+                          maxHeight: 200,
+                          width: 200,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            color: ColorsClass.amber,
+                          ),
+                          scrollbarTheme: ScrollbarThemeData(
+                            radius: const Radius.circular(40),
+                            thickness: MaterialStateProperty.all<double>(6),
+                            thumbVisibility:
+                                MaterialStateProperty.all<bool>(true),
+                          ),
+                        ),
+                        menuItemStyleData: const MenuItemStyleData(
+                          height: 50,
+                          padding: EdgeInsets.only(left: 14, right: 14),
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );
