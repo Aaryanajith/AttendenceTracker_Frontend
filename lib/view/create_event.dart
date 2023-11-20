@@ -5,6 +5,7 @@ import 'package:attendencetracker/utlities/utils.dart';
 import 'package:attendencetracker/view_model/createEventModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -46,123 +47,201 @@ class _CreateEventState extends State<CreateEvent> {
         return true;
       },
       child: Scaffold(
+        extendBodyBehindAppBar: true,
         appBar: Utils.appBar(
           'Create Event',
           automaticallyImplyLeading: true,
         ),
         body: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
-          child: Scaffold(
-            body: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+          child: Container(
+            height: MediaQuery.of(context).size.height,
+            color: ColorsClass.lightBlack,
+            child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: Stack(
                 children: [
                   Column(
                     children: [
-                      const Padding(
-                        padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                      const SizedBox(
+                        width: double.infinity,
+                        height: 120,
+                      ),
+                      SizedBox(
                         child: Text(
-                          'Enter the event name',
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: ColorsClass.black,
-                            fontWeight: FontWeight.bold,
+                          'Enter Event Details',
+                          style: GoogleFonts.oxygen(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: double.infinity,
+                        height: 50,
+                      ),
+                      SizedBox(
+                        width: 350,
+                        child: TextFormField(
+                          style: const TextStyle(color: ColorsClass.white),
+                          decoration: const InputDecoration(
+                            hintText: 'Event Name',
+                            hintStyle: TextStyle(color: Colors.white),
+                            border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: ColorsClass.amber),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: ColorsClass.amber),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                            ),
+                          ),
+                          controller: _eventNameController,
+                        ),
+                      ),
+                      const SizedBox(
+                        width: double.infinity,
+                        height: 30,
+                      ),
+                      SizedBox(
+                        width: 350,
+                        child: TextFormField(
+                          keyboardType: TextInputType.number,
+                          inputFormatters: <TextInputFormatter>[
+                            FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))
+                          ],
+                          decoration: const InputDecoration(
+                            hintText: 'Number of Days',
+                            hintStyle: TextStyle(color: Colors.white),
+                            border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: ColorsClass.amber),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: ColorsClass.amber),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                            ),
+                          ),
+                          controller: _numOfDaysController,
+                        ),
+                      ),
+                      const SizedBox(
+                        width: double.infinity,
+                        height: 30,
+                      ),
+                      SizedBox(
+                        width: 350,
+                        child: TextFormField(
+                          keyboardType: TextInputType.number,
+                          inputFormatters: <TextInputFormatter>[
+                            FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))
+                          ],
+                          decoration: const InputDecoration(
+                            hintText: 'Number of Sessions',
+                            hintStyle: TextStyle(color: Colors.white),
+                            border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: ColorsClass.amber),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: ColorsClass.amber),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                            ),
+                          ),
+                          controller: _numOfSessionController,
+                        ),
+                      ),
+                      const SizedBox(
+                        width: double.infinity,
+                        height: 30,
+                      ),
+                      SizedBox(
+                          child: Text('Select Date',
+                              style: GoogleFonts.oxygen(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white))),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      SizedBox(
+                        width: 350,
+                        child: TextFormField(
+                          onTap: _showDatePicker,
+                          readOnly: true,
+                          textAlign: TextAlign.center,
+                          decoration: InputDecoration(
+                            hintText:
+                                (DateFormat('dd-MM-yyyy').format(_dateTime)),
+                            hintStyle: const TextStyle(color: Colors.white),
+                            border: const OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                            ),
+                            enabledBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(color: ColorsClass.amber),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                            ),
+                            focusedBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(color: ColorsClass.amber),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                            ),
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 20),
-                        child: Container(
-                          padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                          child: TextFormField(
-                            decoration: const InputDecoration(
-                                labelText: 'Enter the event name'),
-                            controller: _eventNameController,
-                          ),
-                        ),
+                      const SizedBox(
+                        width: double.infinity,
+                        height: 60,
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 10),
-                        child: Container(
-                          padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                          child: TextField(
-                            keyboardType: TextInputType.number,
-                            inputFormatters: <TextInputFormatter>[
-                              FilteringTextInputFormatter.allow(
-                                  RegExp(r'[0-9]'))
-                            ],
-                            decoration: const InputDecoration(
-                                labelText: 'Enter the no of days of event'),
-                            controller: _numOfDaysController,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 10),
-                        child: Container(
-                          padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                          child: TextField(
-                            keyboardType: TextInputType.number,
-                            inputFormatters: <TextInputFormatter>[
-                              FilteringTextInputFormatter.digitsOnly
-                            ],
-                            decoration: const InputDecoration(
-                                labelText: 'Enter the number of sessions'),
-                            controller: _numOfSessionController,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 20),
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: ColorsClass.amber),
-                          onPressed: () {
-                            _showDatePicker();
-                          },
-                          child: const Text('Choose starting date'),
-                        ),
-                      ),
-                      Padding(
-                          padding: EdgeInsets.only(top: 20),
-                          child: Text(
-                              'Chosen date: ${DateFormat('dd/MM/yyyy').format(_dateTime)}'
-                                  .toString())),
-                      Padding(
-                        padding: EdgeInsets.only(top: 20),
+                      SizedBox(
+                        width: 200,
                         child: RoundButton(
-                          onPressed: () {
-                            if (_eventNameController.text.isEmpty) {
-                              Utils.flushBarErrorMessage(
-                                  'Please enter the event name', context);
-                            } else if (_numOfDaysController.text.isEmpty) {
-                              Utils.flushBarErrorMessage(
-                                  'Please enter number of days of event',
-                                  context);
-                            } else if (_numOfSessionController.text.isEmpty) {
-                              Utils.flushBarErrorMessage(
-                                  'Please enter number of sessions of the event',
-                                  context);
-                            } else {
-                              debugPrint(DateFormat("dd/MM/yyyy")
-                                  .format(_dateTime)
-                                  .toString());
-                              debugPrint(_numOfDaysController.text);
-                              debugPrint(_numOfSessionController.text);
-
-                              Map data = {
-                                "event_name":
-                                    _eventNameController.text.toString(),
-                                "starting_date":
-                                    DateFormat("dd/MM/yyyy").format(_dateTime),
-                                "num_of_days": _numOfDaysController.text,
-                                "num_of_sessions": _numOfSessionController.text
-                              };
-                              getEventModel.createEvent(data, context);
-                            }
-                          },
-                          buttonName: "Submit",
-                        ),
+                            buttonName: 'Submit',
+                            onPressed: () {
+                              if (_eventNameController.text.isEmpty) {
+                                Utils.flushBarErrorMessage(
+                                    'Please enter the event name', context);
+                              } else if (_numOfDaysController.text.isEmpty) {
+                                Utils.flushBarErrorMessage(
+                                    'Please enter number of days of event',
+                                    context);
+                              } else if (_numOfSessionController.text.isEmpty) {
+                                Utils.flushBarErrorMessage(
+                                    'Please enter number of sessions of the event',
+                                    context);
+                              } else {
+                                Map data = {
+                                  "event_name":
+                                      _eventNameController.text.toString(),
+                                  "starting_date": DateFormat("dd/MM/yyyy")
+                                      .format(_dateTime),
+                                  "num_of_days": _numOfDaysController.text,
+                                  "num_of_sessions":
+                                      _numOfSessionController.text
+                                };
+                                getEventModel.createEvent(data, context);
+                              }
+                            }),
                       )
                     ],
                   )
