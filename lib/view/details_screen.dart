@@ -2,7 +2,7 @@
 
 import 'package:attendencetracker/model/getAttendees_model.dart';
 import 'package:attendencetracker/resources/color.dart';
-import 'package:attendencetracker/resources/components/round_buttom.dart';
+import 'package:attendencetracker/resources/components/round_button.dart';
 import 'package:attendencetracker/utlities/routes/route_names.dart';
 import 'package:attendencetracker/utlities/utils.dart';
 import 'package:attendencetracker/view_model/getAttendeeViewModel.dart';
