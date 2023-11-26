@@ -76,168 +76,162 @@ class _QRScannerState extends State<QRScanner> {
         extendBodyBehindAppBar: true,
         body: Container(
           color: ColorsClass.lightBlack,
-          child: Stack(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Column(
-                children: [
-                  const SizedBox(
-                    width: double.infinity,
-                    height: 120,
-                  ),
-                  SizedBox(
-                    width: 170,
-                    height: 50,
-                    child: ListTile(
-                      title: Text('Scanned ID',
-                          style: GoogleFonts.oxygen(
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                              color: ColorsClass.white)),
-                      subtitle: Center(
-                        child: Text(
-                          '${scanResult?.rawContent}',
-                          style: GoogleFonts.oxygen(
-                              fontSize: 40,
-                              fontWeight: FontWeight.bold,
-                              color: ColorsClass.white),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: double.infinity,
-                    height: 90,
-                  ),
-                  Center(
-                    child: SizedBox(
-                      width: 170,
-                      child: Text(
-                        'Select Session',
+              const SizedBox(
+                width: double.infinity,
+                height: 120,
+              ),
+              SizedBox(
+                child: ListTile(
+                  title: Align(
+                    alignment: Alignment.center,
+                    child: Text('Scanned ID',
                         style: GoogleFonts.oxygen(
                             fontSize: 25,
                             fontWeight: FontWeight.bold,
-                            color: ColorsClass.white),
+                            color: ColorsClass.white)),
+                  ),
+                  subtitle: Center(
+                    child: Text(
+                      '${scanResult?.rawContent}',
+                      style: GoogleFonts.oxygen(
+                          fontSize: 40,
+                          fontWeight: FontWeight.bold,
+                          color: ColorsClass.white),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                width: double.infinity,
+                height: 90,
+              ),
+              Center(
+                child: SizedBox(
+                  child: Text(
+                    'Select Session',
+                    style: GoogleFonts.oxygen(
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                        color: ColorsClass.white),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                width: double.infinity,
+                height: 20,
+              ),
+              SizedBox(
+                width: 200,
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButtonFormField2<String>(
+                    isExpanded: true,
+                    decoration: const InputDecoration.collapsed(hintText: ''),
+                    hint: Row(
+                      children: [
+                        const Icon(
+                          Icons.arrow_downward_sharp,
+                          size: 16,
+                          color: ColorsClass.amber,
+                        ),
+                        const SizedBox(
+                          width: 4,
+                        ),
+                        Expanded(
+                            child: Text(
+                          'Select Session',
+                          style: GoogleFonts.oxygen(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: ColorsClass.white),
+                          overflow: TextOverflow.ellipsis,
+                        )),
+                      ],
+                    ),
+                    items: items
+                        .map((String item) => DropdownMenuItem<String>(
+                            value: item,
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(70, 0, 0, 0),
+                              child: Text(
+                                item,
+                                style: GoogleFonts.oxygen(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: ColorsClass.white),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            )))
+                        .toList(),
+                    value: selectedValue,
+                    onChanged: (value) {
+                      setState(() {
+                        selectedValue = value;
+                      });
+                    },
+                    buttonStyleData: ButtonStyleData(
+                      height: 50,
+                      width: 160,
+                      padding: const EdgeInsets.only(left: 14, right: 14),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(40),
+                        border: Border.all(
+                          color: ColorsClass.transparent,
+                        ),
+                        color: ColorsClass.amber,
+                      ),
+                      elevation: 2,
+                    ),
+                    iconStyleData: const IconStyleData(
+                      icon: Icon(
+                        Icons.arrow_forward_ios_outlined,
+                      ),
+                      iconSize: 14,
+                      iconEnabledColor: Colors.yellow,
+                      iconDisabledColor: Colors.grey,
+                    ),
+                    dropdownStyleData: DropdownStyleData(
+                      maxHeight: 200,
+                      width: 200,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        color: ColorsClass.amber,
+                      ),
+                      scrollbarTheme: ScrollbarThemeData(
+                        radius: const Radius.circular(40),
+                        thickness: MaterialStateProperty.all<double>(6),
+                        thumbVisibility: MaterialStateProperty.all<bool>(true),
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    width: double.infinity,
-                    height: 20,
-                  ),
-                  SizedBox(
-                    width: 200,
-                    child: DropdownButtonHideUnderline(
-                      child: DropdownButtonFormField2<String>(
-                        isExpanded: true,
-                        decoration:
-                            const InputDecoration.collapsed(hintText: ''),
-                        hint: Row(
-                          children: [
-                            const Icon(
-                              Icons.arrow_downward_sharp,
-                              size: 16,
-                              color: ColorsClass.amber,
-                            ),
-                            const SizedBox(
-                              width: 4,
-                            ),
-                            Expanded(
-                                child: Text(
-                              'Select Session',
-                              style: GoogleFonts.oxygen(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                  color: ColorsClass.white),
-                              overflow: TextOverflow.ellipsis,
-                            )),
-                          ],
-                        ),
-                        items: items
-                            .map((String item) => DropdownMenuItem<String>(
-                                value: item,
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(70, 0, 0, 0),
-                                  child: Text(
-                                    item,
-                                    style: GoogleFonts.oxygen(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                        color: ColorsClass.white),
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                )))
-                            .toList(),
-                        value: selectedValue,
-                        onChanged: (value) {
-                          setState(() {
-                            selectedValue = value;
-                          });
-                        },
-                        buttonStyleData: ButtonStyleData(
-                          height: 50,
-                          width: 160,
-                          padding: const EdgeInsets.only(left: 14, right: 14),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(40),
-                            border: Border.all(
-                              color: ColorsClass.transparent,
-                            ),
-                            color: ColorsClass.amber,
-                          ),
-                          elevation: 2,
-                        ),
-                        iconStyleData: const IconStyleData(
-                          icon: Icon(
-                            Icons.arrow_forward_ios_outlined,
-                          ),
-                          iconSize: 14,
-                          iconEnabledColor: Colors.yellow,
-                          iconDisabledColor: Colors.grey,
-                        ),
-                        dropdownStyleData: DropdownStyleData(
-                          maxHeight: 200,
-                          width: 200,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            color: ColorsClass.amber,
-                          ),
-                          scrollbarTheme: ScrollbarThemeData(
-                            radius: const Radius.circular(40),
-                            thickness: MaterialStateProperty.all<double>(6),
-                            thumbVisibility:
-                                MaterialStateProperty.all<bool>(true),
-                          ),
-                        ),
-                        menuItemStyleData: const MenuItemStyleData(
-                          height: 50,
-                          padding: EdgeInsets.only(left: 14, right: 14),
-                        ),
-                      ),
+                    menuItemStyleData: const MenuItemStyleData(
+                      height: 50,
+                      padding: EdgeInsets.only(left: 14, right: 14),
                     ),
                   ),
-                  const SizedBox(
-                    width: double.infinity,
-                    height: 70,
-                  ),
-                  SizedBox(
-                    child: SizedBox(
-                      width: 180,
-                      height: 45,
-                      child: RoundButton(
-                          buttonName: 'Submit',
-                          onPressed: () {
-                            Map data = {
-                              "id": scanResult?.rawContent,
-                              "date": "10/12/2023",
-                              "session": selectedValue.toString(),
-                              "time": formatedTime.toString()
-                            };
-                            scanAttendeeModel.scanAttendee(data, context);
-                          }),
-                    ),
-                  )
-                ],
+                ),
+              ),
+              const SizedBox(
+                width: double.infinity,
+                height: 70,
+              ),
+              SizedBox(
+                child: SizedBox(
+                  width: 180,
+                  height: 45,
+                  child: RoundButton(
+                      buttonName: 'Submit',
+                      onPressed: () {
+                        Map data = {
+                          "id": scanResult?.rawContent,
+                          "date": "10/12/2023",
+                          "session": selectedValue.toString(),
+                          "time": formatedTime.toString()
+                        };
+                        scanAttendeeModel.scanAttendee(data, context);
+                      }),
+                ),
               )
             ],
           ),

@@ -79,7 +79,7 @@ class _DeleteEventState extends State<DeleteEvent> {
                       height: 20,
                     ),
                     SizedBox(
-                      width: 150,
+                      width: 200,
                       child: DropdownButtonFormField<String>(
                         isExpanded: true,
                         hint: Text(
@@ -117,7 +117,7 @@ class _DeleteEventState extends State<DeleteEvent> {
                           return DropdownMenuItem<String>(
                             value: name,
                             child: Padding(
-                              padding: const EdgeInsets.fromLTRB(40, 0, 0, 0),
+                              padding: const EdgeInsets.fromLTRB(35, 0, 0, 0),
                               child: Text(name,
                                   style: GoogleFonts.oxygen(
                                       fontWeight: FontWeight.bold,

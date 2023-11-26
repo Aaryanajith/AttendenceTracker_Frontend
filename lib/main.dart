@@ -35,7 +35,7 @@ class MainApp extends StatelessWidget {
           primarySwatch: Colors.amber,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        initialRoute: RouteNames.details,
+        initialRoute: RouteNames.splash,
         onGenerateRoute: Routes.generateRoute,
       ),
     );
