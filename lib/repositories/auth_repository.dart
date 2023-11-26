@@ -14,4 +14,14 @@ class AuthRepository {
       rethrow;
     }
   }
+
+  Future<dynamic> refresh(dynamic data) async {
+    try {
+      dynamic response =
+          await _apiServices.getPostApiResponse(AppUrl.refreshToken, data);
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

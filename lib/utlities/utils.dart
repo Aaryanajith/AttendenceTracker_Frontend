@@ -128,10 +128,10 @@ class BottomNavigationBarUtils extends StatefulWidget {
 }
 
 class _BottomNavigationBarUtilsState extends State<BottomNavigationBarUtils> {
-  @override
+  @override 
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 20),
+      padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
       child: DotNavigationBar(
         margin: const EdgeInsets.only(left: 10, right: 10),
         currentIndex: widget.currentIndex,

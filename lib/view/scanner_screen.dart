@@ -155,13 +155,17 @@ class _QRScannerState extends State<QRScanner> {
                         items: items
                             .map((String item) => DropdownMenuItem<String>(
                                 value: item,
-                                child: Text(
-                                  item,
-                                  style: GoogleFonts.oxygen(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold,
-                                      color: ColorsClass.white),
-                                  overflow: TextOverflow.ellipsis,
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(70, 0, 0, 0),
+                                  child: Text(
+                                    item,
+                                    style: GoogleFonts.oxygen(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                        color: ColorsClass.white),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
                                 )))
                             .toList(),
                         value: selectedValue,
@@ -217,19 +221,21 @@ class _QRScannerState extends State<QRScanner> {
                     height: 70,
                   ),
                   SizedBox(
-                    width: 180,
-                    height: 45,
-                    child: RoundButton(
-                        buttonName: 'Submit',
-                        onPressed: () {
-                          Map data = {
-                            "id": scanResult?.rawContent,
-                            "date": "10/12/2023",
-                            "session": selectedValue.toString(),
-                            "time": formatedTime.toString()
-                          };
-                          scanAttendeeModel.scanAttendee(data, context);
-                        }),
+                    child: SizedBox(
+                      width: 180,
+                      height: 45,
+                      child: RoundButton(
+                          buttonName: 'Submit',
+                          onPressed: () {
+                            Map data = {
+                              "id": scanResult?.rawContent,
+                              "date": "10/12/2023",
+                              "session": selectedValue.toString(),
+                              "time": formatedTime.toString()
+                            };
+                            scanAttendeeModel.scanAttendee(data, context);
+                          }),
+                    ),
                   )
                 ],
               )

@@ -24,7 +24,8 @@ class AuthViewModel with ChangeNotifier {
         Utils.flushBarSuccessMessage('Login Successful', context);
         Navigator.pushNamed(context, RouteNames.home);
       } else {
-        Utils.flushBarErrorMessage('Login failed: Access token is missing', context);
+        Utils.flushBarErrorMessage(
+            'Login failed: Access token is missing', context);
       }
 
       if (kDebugMode) {
@@ -33,6 +34,24 @@ class AuthViewModel with ChangeNotifier {
     } catch (error) {
       Utils.flushBarErrorMessage('Login failed: Password Wrong', context);
       debugPrint(error.toString());
+    }
+  }
+
+  Future<void> refresh(dynamic data, BuildContext context) async {
+    final userPreference = Provider.of<TokenViewModel>(context, listen: false);
+
+    try {
+      final value = await _myRepository.refresh(data);
+
+      userPreference.removeAccess();
+
+      final access = value['access']?.toString();
+
+      if (access != null) {
+        userPreference.saveToken(TokenModel(access: access));
+      }
+    } catch (e) {
+      debugPrint(e.toString());
     }
   }
 }

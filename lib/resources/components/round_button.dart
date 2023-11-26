@@ -23,7 +23,7 @@ class RoundButton extends StatelessWidget {
         child: Center(
             child: Text(buttonName,
                 style: GoogleFonts.oxygen(
-                    fontSize: 20,
+                    fontSize: 18,
                     fontWeight: FontWeight.bold,
                     color: ColorsClass.white))),
       ),

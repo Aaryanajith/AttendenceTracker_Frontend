@@ -1,3 +1,5 @@
+// ignore_for_file: unused_field, unused_local_variable
+
 import 'package:attendencetracker/resources/color.dart';
 import 'package:attendencetracker/resources/components/round_button.dart';
 import 'package:attendencetracker/utlities/routes/route_names.dart';
@@ -65,9 +67,9 @@ class _DeleteEventState extends State<DeleteEvent> {
                       width: double.infinity,
                       height: 120,
                     ),
-                    const SizedBox(
+                    SizedBox(
                       child: Text('Select Event Name to Delete',
-                          style: TextStyle(
+                          style: GoogleFonts.oxygen(
                               color: ColorsClass.white,
                               fontSize: 20,
                               fontWeight: FontWeight.bold)),
@@ -77,9 +79,9 @@ class _DeleteEventState extends State<DeleteEvent> {
                       height: 20,
                     ),
                     SizedBox(
-                      width: 200,
+                      width: 150,
                       child: DropdownButtonFormField<String>(
-                        isExpanded: false,
+                        isExpanded: true,
                         hint: Text(
                           'Select Event',
                           style: GoogleFonts.oxygen(

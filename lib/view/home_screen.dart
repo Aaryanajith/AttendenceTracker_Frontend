@@ -1,14 +1,15 @@
-// ignore_for_file: unused_field
+// ignore_for_file: unused_field, use_build_context_synchronously
 
 import 'package:attendencetracker/model/getAttendees_model.dart';
 import 'package:attendencetracker/resources/color.dart';
 import 'package:attendencetracker/utlities/routes/route_names.dart';
 import 'package:attendencetracker/utlities/utils.dart';
+import 'package:attendencetracker/view_model/authViewModel.dart';
 import 'package:attendencetracker/view_model/getAttendeeViewModel.dart';
 import 'package:attendencetracker/view_model/getEventViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
@@ -55,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final getAttendeeViewModel = Provider.of<GetAttendeeViewModel>(context);
-
+    final authViewModel = Provider.of<AuthViewModel>(context);
     eventViewModel = Provider.of<EventViewModel>(context);
     // String json = jsonEncode(eventViewModel.eventsList.data);
     // debugPrint("RESPONSE ${jsonDecode(json)}");
@@ -76,6 +77,16 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           spaceBetweenChildren: 10,
           animatedIcon: AnimatedIcons.menu_close,
           children: [
+            SpeedDialChild(
+              child: const Icon(Icons.refresh),
+              onTap: () async {
+                final SharedPreferences sharedPreferences =
+                    await SharedPreferences.getInstance();
+                final String? refresh = sharedPreferences.getString('refresh');
+                Map data = {"refresh": refresh.toString()};
+                authViewModel.refresh(data, context);
+              },
+            ),
             SpeedDialChild(
               child: const Icon(Icons.delete),
               onTap: () {
