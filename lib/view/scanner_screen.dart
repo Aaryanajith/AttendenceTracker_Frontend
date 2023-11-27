@@ -94,19 +94,22 @@ class _QRScannerState extends State<QRScanner> {
                             color: ColorsClass.white)),
                   ),
                   subtitle: Center(
-                    child: Text(
-                      '${scanResult?.rawContent}',
-                      style: GoogleFonts.oxygen(
-                          fontSize: 40,
-                          fontWeight: FontWeight.bold,
-                          color: ColorsClass.white),
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 12, 0, 0),
+                      child: Text(
+                        '${scanResult?.rawContent}',
+                        style: GoogleFonts.oxygen(
+                            fontSize: 40,
+                            fontWeight: FontWeight.bold,
+                            color: ColorsClass.white),
+                      ),
                     ),
                   ),
                 ),
               ),
               const SizedBox(
                 width: double.infinity,
-                height: 90,
+                height: 25,
               ),
               Center(
                 child: SizedBox(

@@ -3,6 +3,7 @@
 import 'package:attendencetracker/data/network/BaseApiServices.dart';
 import 'package:attendencetracker/data/network/NetworkApiServices.dart';
 import 'package:attendencetracker/resources/app_url.dart';
+import 'package:flutter/material.dart';
 
 class GetAttendeeRepository {
   final BaseApiServices _apiServices = NetworkApiService();
@@ -13,7 +14,7 @@ class GetAttendeeRepository {
           await _apiServices.getPostApiResponse_(AppUrl.getAttendees, data);
       return response;
     } catch (e) {
-      rethrow;
+      debugPrint(e.toString());
     }
   }
 }
