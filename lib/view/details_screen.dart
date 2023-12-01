@@ -1,7 +1,4 @@
-// ignore_for_file: unused_field
-
-import 'dart:math';
-
+// ignore_for_file: unused_field;
 import 'package:attendencetracker/model/getAttendees_model.dart';
 import 'package:attendencetracker/resources/color.dart';
 import 'package:attendencetracker/resources/components/round_button.dart';
@@ -13,6 +10,7 @@ import 'package:attendencetracker/view_model/tokenViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 
 class DetailScreen extends StatefulWidget {
   const DetailScreen({super.key});
@@ -148,82 +146,81 @@ class _DetailScreenState extends State<DetailScreen>
                   },
                 ),
               ),
-              const SizedBox(
-                width: double.infinity,
-                height: 20,
-              ),
-              SizedBox(
-                width: 350,
-                height: 400,
-                child: FutureBuilder<List<GetAttendees>?>(
-                  future: getAttendeeViewModel.getAttendeeApi(
-                      {"event_name": selectedType.toString()}, context),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Center(child: CircularProgressIndicator());
-                    } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                      return Center(
-                          child: Text('No Data Found',
-                              style: GoogleFonts.oxygen(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: ColorsClass.white,
-                              )));
-                    } else if (snapshot.hasError) {
-                      return Text('Error: ${snapshot.error}');
-                    } else {
-                      List<GetAttendees>? attendeesData = snapshot.data;
-
-                      return ListView.builder(
-                        itemCount: attendeesData?.length ?? 0,
-                        itemBuilder: (context, index) {
-                          return Card(
-                            elevation: 12,
-                            shadowColor: ColorsClass.black,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(28.0),
-                            ),
-                            color: ColorsClass.amber,
-                            child: ListTile(
-                                title: Text(
-                                  'Name: ${attendeesData?[index].name}',
-                                  style: GoogleFonts.oxygen(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                    color: ColorsClass.black,
+              Align(
+                alignment: Alignment.topCenter,
+                child: SizedBox(
+                  width: 350,
+                  height: 500,
+                  child: FutureBuilder<List<GetAttendees>?>(
+                    future: getAttendeeViewModel.getAttendeeApi(
+                        {"event_name": selectedType.toString()}, context),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return shimmmerLoading();
+                      } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                        return Center(
+                            child: Text('No Data Found',
+                                style: GoogleFonts.oxygen(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: ColorsClass.white,
+                                )));
+                      } else if (snapshot.hasError) {
+                        return Text('Error: ${snapshot.error}');
+                      } else {
+                        List<GetAttendees>? attendeesData = snapshot.data;
+                        return ListView.builder(
+                          itemCount: attendeesData?.length ?? 0,
+                          itemBuilder: (context, index) {
+                            return Card(
+                              elevation: 12,
+                              shadowColor: ColorsClass.black,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(25.0),
+                              ),
+                              color: ColorsClass.amber,
+                              child: ListTile(
+                                  title: Text(
+                                    'Name: ${attendeesData?[index].name}',
+                                    style: GoogleFonts.oxygen(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: ColorsClass.black,
+                                    ),
                                   ),
-                                ),
-                                subtitle: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'ID: ${attendeesData?[index].id}',
-                                      style: GoogleFonts.oxygen(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold,
-                                          color: ColorsClass.white),
-                                    ),
-                                    Text(
-                                      'Email: ${attendeesData?[index].email}',
-                                      style: GoogleFonts.oxygen(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold,
-                                          color: ColorsClass.white),
-                                    ),
-                                    Text(
-                                      'Roll No: ${attendeesData?[index].rollNumber}',
-                                      style: GoogleFonts.oxygen(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold,
-                                          color: ColorsClass.white),
-                                    ),
-                                  ],
-                                )),
-                          );
-                        },
-                      );
-                    }
-                  },
+                                  subtitle: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'ID: ${attendeesData?[index].id}',
+                                        style: GoogleFonts.oxygen(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold,
+                                            color: ColorsClass.white),
+                                      ),
+                                      Text(
+                                        'Email: ${attendeesData?[index].email}',
+                                        style: GoogleFonts.oxygen(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold,
+                                            color: ColorsClass.white),
+                                      ),
+                                      Text(
+                                        'Roll No: ${attendeesData?[index].rollNumber}',
+                                        style: GoogleFonts.oxygen(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold,
+                                            color: ColorsClass.white),
+                                      ),
+                                    ],
+                                  )),
+                            );
+                          },
+                        );
+                      }
+                    },
+                  ),
                 ),
               ),
               SizedBox(
@@ -280,85 +277,78 @@ class _DetailScreenState extends State<DetailScreen>
       ),
     );
   }
+
+  shimmmerLoading() {
+    return ListView.builder(
+      itemCount: 3,
+      itemBuilder: (context, index) => Card(
+          elevation: 12,
+          shadowColor: ColorsClass.black,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(25.0),
+          ),
+          color: ColorsClass.amber,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+            child: SizedBox(
+              height: 90,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Shimmer.fromColors(
+                    baseColor: ColorsClass.lightBlack,
+                    highlightColor: const Color.fromARGB(255, 200, 200, 200),
+                    child: Container(
+                      width: 80,
+                      height: 8,
+                      color: ColorsClass.white,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Shimmer.fromColors(
+                    baseColor: ColorsClass.white,
+                    highlightColor: const Color.fromARGB(255, 200, 200, 200),
+                    child: Container(
+                      width: 200,
+                      height: 8,
+                      color: ColorsClass.white,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Shimmer.fromColors(
+                    baseColor: ColorsClass.white,
+                    highlightColor: const Color.fromARGB(255, 200, 200, 200),
+                    child: Container(
+                      width: 200,
+                      height: 8,
+                      color: ColorsClass.white,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Shimmer.fromColors(
+                    baseColor: ColorsClass.white,
+                    highlightColor: const Color.fromARGB(255, 200, 200, 200),
+                    child: Container(
+                      width: 200,
+                      height: 8,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          )),
+    );
+  }
 }
 
 enum _SelectedTab { home, qrCode, details }
-
-
-            // const Positioned(
-            //     top: 100,
-            //     left: 80,
-            //     child: Text('Select Event Name to display details')),
-            // Positioned(
-            //   top: 175, // Adjust the position as needed
-            //   left: 120, // Adjust the position as needed
-            //   child: DropdownButton<String>(
-            //     items: eventNames?.map((name) {
-            //       return DropdownMenuItem<String>(
-            //         value: name,
-            //         child: Text(name),
-            //       );
-            //     }).toList(),
-            //     value: selectedType,
-            //     onChanged: (String? value) {
-            //       if (value != null) {
-            //         setState(() {
-            //           selectedType = value;
-            //         });
-            //       }
-            //     },
-            //   ),
-            // ),
-            // Positioned(
-            //   top: 250,
-            //   left: 16,
-            //   right: 16,
-            //   bottom: 160,
-            //   child: FutureBuilder<List<GetAttendees>?>(
-            //     future: getAttendeeViewModel.getAttendeeApi({"event_name": selectedType.toString()}, context),
-            //     builder: (context, snapshot) {
-            //       if (snapshot.connectionState == ConnectionState.waiting) {
-            //         return const Center(child: CircularProgressIndicator());
-            //       } else if (!snapshot.hasData || snapshot.data!.isEmpty){
-            //         return const Center(child: Text('No Data Found'));
-            //       }else if (snapshot.hasError) {
-            //         return Text('Error: ${snapshot.error}');
-            //       } else {
-
-            //         List<GetAttendees>? attendeesData = snapshot.data;
-
-            //         return ListView.builder(
-            //           itemCount: attendeesData?.length ?? 0,
-            //           itemBuilder: (context, index) {
-            //             return Card(
-            //               child: ListTile(
-            //                 title: Text('Name: ${attendeesData?[index].name}'),
-            //                 subtitle:
-            //                     Column(
-            //                       crossAxisAlignment: CrossAxisAlignment.start,
-            //                       children: [
-            //                         Text('ID: ${attendeesData?[index].id}'),
-            //                         Text('Email: ${attendeesData?[index].email}'),
-            //                         Text('Roll No: ${attendeesData?[index].rollNumber}'),
-            //                       ],
-            //                     )
-            //               ),
-            //             );
-            //           },
-            //         );
-            //       }
-            //     },
-            //   ),
-            // ),
-            // Positioned(
-            //   bottom: 110,
-            //   left: 90,
-            //   child: RoundButton(
-            //     onPressed: () {
-            //       userPreference.remove().then((value) {
-            //         Navigator.pushNamed(context, RouteNames.login);
-            //       });
-            //     },
-            //     buttonName: "Logout",
-            //   ),
-            // )

@@ -13,14 +13,14 @@ class SplashServices {
       debugPrint(value.token.toString());
 
       if (value.token == 'null' || value.token.toString() == '') {
-        Future.delayed(const Duration(seconds: 2));
+        Future.delayed(const Duration(seconds: 3));
         Navigator.pushNamed(context, RouteNames.login);
       } else {
         Future.delayed(const Duration(seconds: 2));
         Navigator.pushNamed(context, RouteNames.home);
       }
     }).onError((error, stackTrace) {
-        debugPrint(error.toString());
+      debugPrint(error.toString());
     });
   }
 }
